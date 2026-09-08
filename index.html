@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -8,95 +10,123 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   >
 
-  <title>Ovqat nazorati</title>
+  <title>🍽️ Ovqat nazorati</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+
   <style>
+
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
+
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
 
-      background: var(--tg-theme-bg-color, #f5f5f5);
-      color: var(--tg-theme-text-color, #222);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      background: #f4f6f8;
+
+      color: #202124;
     }
 
-    .app {
+
+    .container {
       width: 100%;
       max-width: 650px;
-      margin: auto;
+
+      margin: 0 auto;
 
       padding: 16px;
       padding-bottom: 40px;
     }
 
+
     .header {
-      text-align: center;
-      margin-bottom: 18px;
+      background: white;
+
+      border-radius: 18px;
+
+      padding: 18px;
+
+      margin-bottom: 14px;
+
+      box-shadow:
+        0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .header-icon {
-      font-size: 42px;
-      margin-bottom: 5px;
-    }
 
     .header h1 {
       margin: 0;
 
       font-size: 23px;
-      font-weight: 700;
+
+      text-align: center;
     }
+
 
     .header p {
       margin: 7px 0 0;
 
+      text-align: center;
+
+      color: #777;
+
       font-size: 14px;
-      opacity: 0.65;
     }
+
 
     .card {
-      background: var(--tg-theme-secondary-bg-color, #ffffff);
+      background: white;
 
-      border-radius: 16px;
+      border-radius: 18px;
 
-      padding: 16px;
+      padding: 18px;
 
       margin-bottom: 14px;
 
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      box-shadow:
+        0 2px 10px rgba(0,0,0,0.06);
     }
 
-    .section-title {
+
+    .title {
       font-size: 17px;
+
       font-weight: 700;
 
-      margin-bottom: 14px;
+      margin-bottom: 13px;
     }
+
 
     label {
       display: block;
 
-      font-size: 13px;
+      font-size: 14px;
+
       font-weight: 600;
 
       margin-bottom: 7px;
-
-      opacity: 0.8;
     }
+
 
     input,
     textarea,
     select {
+
       width: 100%;
 
-      border: 0;
-      outline: none;
+      border: 1px solid #d8dce1;
 
       border-radius: 12px;
 
@@ -104,20 +134,18 @@
 
       font-size: 16px;
 
-      color: var(--tg-theme-text-color, #222);
+      outline: none;
 
-      background: var(--tg-theme-bg-color, #f3f3f3);
-
-      margin-bottom: 12px;
+      background: #fff;
     }
 
-    input[type="date"] {
-      min-height: 48px;
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #229ed9;
     }
 
-    input[type="number"] {
-      min-height: 48px;
-    }
 
     textarea {
       min-height: 90px;
@@ -125,181 +153,140 @@
       resize: vertical;
     }
 
-    .employee-box {
-      border: 1px solid rgba(128, 128, 128, 0.2);
 
-      border-radius: 12px;
-
-      padding: 10px;
-
-      margin-bottom: 12px;
-
-      max-height: 320px;
-
-      overflow-y: auto;
+    .field {
+      margin-bottom: 15px;
     }
 
-    .employee-row {
-      display: flex !important;
+
+    .employee-list {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 8px;
+    }
+
+
+    .employee {
+
+      display: flex;
 
       align-items: center;
 
       gap: 10px;
 
-      padding: 10px 4px;
+      padding: 11px;
 
-      margin: 0 !important;
+      border: 1px solid #e1e4e8;
 
-      border-bottom: 1px solid rgba(128, 128, 128, 0.12);
+      border-radius: 12px;
 
       cursor: pointer;
     }
 
-    .employee-row:last-child {
-      border-bottom: 0;
+
+    .employee input {
+      width: 20px;
+
+      height: 20px;
+
+      margin: 0;
     }
 
-    .employee-row input {
-      width: 22px !important;
-      height: 22px !important;
 
-      min-height: 22px;
-
-      margin: 0 !important;
-
-      flex-shrink: 0;
+    .employee-info {
+      flex: 1;
     }
+
 
     .employee-name {
-      font-size: 15px;
+      font-weight: 600;
 
-      line-height: 1.3;
+      font-size: 14px;
     }
+
 
     .employee-position {
-      display: block;
+      color: #777;
 
       font-size: 12px;
 
-      opacity: 0.55;
-
-      margin-top: 3px;
+      margin-top: 2px;
     }
 
-    .empty-message {
+
+    .amount {
+      font-size: 20px;
+
+      font-weight: 700;
+    }
+
+
+    .photo-box {
+
+      border: 2px dashed #cdd3d9;
+
+      border-radius: 14px;
+
+      padding: 18px;
+
       text-align: center;
 
-      opacity: 0.55;
-
-      padding: 14px;
-
-      font-size: 14px;
-    }
-
-    .money {
-      position: relative;
-    }
-
-    .money input {
-      padding-right: 60px;
-    }
-
-    .currency {
-      position: absolute;
-
-      right: 14px;
-      top: 15px;
-
-      font-size: 13px;
-
-      opacity: 0.55;
-
-      pointer-events: none;
-    }
-
-    .photo-area {
-      display: grid;
-
-      grid-template-columns: repeat(3, 1fr);
-
-      gap: 8px;
-    }
-
-    .photo-button {
-      width: 100%;
-
-      min-height: 105px;
-
-      border: 2px dashed rgba(128, 128, 128, 0.35);
-
-      border-radius: 14px;
-
-      background: transparent;
-
-      color: inherit;
-
-      font-size: 14px;
-
       cursor: pointer;
     }
+
+
+    .photo-box input {
+      display: none;
+    }
+
+
+    .photo-icon {
+      font-size: 35px;
+
+      margin-bottom: 6px;
+    }
+
+
+    .photo-text {
+      font-size: 14px;
+
+      color: #666;
+    }
+
 
     .photo-preview {
-      position: relative;
 
-      height: 105px;
+      display: grid;
 
-      border-radius: 14px;
+      grid-template-columns:
+        repeat(3, 1fr);
 
-      overflow: hidden;
+      gap: 8px;
 
-      background: #ddd;
+      margin-top: 12px;
     }
+
 
     .photo-preview img {
+
       width: 100%;
-      height: 100%;
+
+      aspect-ratio: 1 / 1;
 
       object-fit: cover;
+
+      border-radius: 10px;
     }
 
-    .remove-photo {
-      position: absolute;
-
-      right: 5px;
-      top: 5px;
-
-      width: 28px;
-      height: 28px;
-
-      border: 0;
-
-      border-radius: 50%;
-
-      background: rgba(0, 0, 0, 0.7);
-
-      color: white;
-
-      font-size: 18px;
-
-      cursor: pointer;
-    }
-
-    .counter {
-      font-size: 12px;
-
-      opacity: 0.55;
-
-      text-align: right;
-
-      margin-top: -7px;
-
-      margin-bottom: 10px;
-    }
 
     .save-button {
+
       width: 100%;
 
-      border: 0;
+      border: none;
 
       border-radius: 15px;
 
@@ -309,200 +296,224 @@
 
       font-weight: 700;
 
+      color: white;
+
+      background: #229ed9;
+
       cursor: pointer;
-
-      background: var(--tg-theme-button-color, #2481cc);
-
-      color: var(--tg-theme-button-text-color, #fff);
     }
 
+
     .save-button:disabled {
-      opacity: 0.55;
+
+      opacity: 0.6;
 
       cursor: not-allowed;
     }
 
-    .status {
-      display: none;
 
-      margin-top: 12px;
+    .status {
+
+      display: none;
 
       padding: 13px;
 
       border-radius: 12px;
 
-      text-align: center;
+      margin-bottom: 14px;
 
       font-size: 14px;
 
-      line-height: 1.4;
+      font-weight: 600;
+
+      text-align: center;
     }
 
-    .status.show {
-      display: block;
-    }
 
     .status.success {
-      background: rgba(50, 180, 80, 0.12);
+
+      display: block;
+
+      background: #e8f7ed;
+
+      color: #16833a;
     }
+
 
     .status.error {
-      background: rgba(220, 60, 60, 0.12);
+
+      display: block;
+
+      background: #fdecec;
+
+      color: #c62828;
     }
 
-    .status.loading {
-      background: rgba(36, 129, 204, 0.12);
+
+    .small {
+
+      color: #777;
+
+      font-size: 12px;
+
+      margin-top: 5px;
     }
+
+
   </style>
+
 </head>
+
 
 <body>
 
-<div class="app">
 
-  <!-- HEADER -->
+<div class="container">
+
+
   <div class="header">
 
-    <div class="header-icon">
-      🍽️
-    </div>
+    <h1>🍽️ Ovqat nazorati</h1>
 
-    <h1>
-      Ovqat nazorati
-    </h1>
+    <p>Kunlik oshxona xarajatlarini kiriting</p>
 
-    <p>
-      Kunlik ovqat xarajatlarini kiritish
-    </p>
+  </div>
 
+
+  <div
+    id="status"
+    class="status">
   </div>
 
 
   <!-- SANA -->
+
   <div class="card">
 
-    <div class="section-title">
+    <div class="title">
       📅 Sana
     </div>
 
-    <input
-      type="date"
-      id="sana"
-    >
+    <div class="field">
+
+      <input
+        type="date"
+        id="sana"
+      >
+
+    </div>
 
   </div>
 
 
-  <!-- OSHXONA -->
+  <!-- OSHXONA XODIMLARI -->
+
   <div class="card">
 
-    <div class="section-title">
-      👨‍🍳 Oshxona
+    <div class="title">
+      👨‍🍳 Oshxona xodimlari
     </div>
-
-    <label>
-      Oshxonada ovqatlangan xodimlar
-    </label>
 
     <div
-      class="employee-box"
-      id="oshxonaXodimlar"
-    >
+      id="oshxonaEmployees"
+      class="employee-list">
+    </div>
 
-      <div class="empty-message">
-        Xodimlar yuklanmoqda...
-      </div>
+  </div>
+
+
+  <!-- MAHSULOTLAR -->
+
+  <div class="card">
+
+    <div class="title">
+      🛒 Oshxona mahsulotlari
+    </div>
+
+    <div class="field">
+
+      <textarea
+        id="oshxonaItems"
+        placeholder="Masalan: go‘sht, guruch, piyoz, sabzi..."
+      ></textarea>
 
     </div>
 
 
-    <label>
-      Oshxona mahsulotlari
-    </label>
+    <div class="field">
 
-    <textarea
-      id="oshxonaItems"
-      placeholder="Masalan:
-Guruch - 5 kg
-Go‘sht - 3 kg
-Sabzi - 2 kg"
-    ></textarea>
+      <label>
+        Oshxona haftasi
+      </label>
 
+      <select id="oshxonaHafta">
 
-    <label>
-      Oshxona haftasi
-    </label>
+        <option value="">
+          Haftani tanlang
+        </option>
 
-    <select id="oshxonaHafta">
+        <option value="1-hafta">
+          1-hafta
+        </option>
 
-      <option value="">
-        Haftani tanlang
-      </option>
+        <option value="2-hafta">
+          2-hafta
+        </option>
 
-      <option value="1-hafta">
-        1-hafta
-      </option>
+        <option value="3-hafta">
+          3-hafta
+        </option>
 
-      <option value="2-hafta">
-        2-hafta
-      </option>
+        <option value="4-hafta">
+          4-hafta
+        </option>
 
-      <option value="3-hafta">
-        3-hafta
-      </option>
+        <option value="5-hafta">
+          5-hafta
+        </option>
 
-      <option value="4-hafta">
-        4-hafta
-      </option>
+      </select>
 
-      <option value="5-hafta">
-        5-hafta
-      </option>
-
-    </select>
+    </div>
 
   </div>
 
 
   <!-- TASHQARI -->
+
   <div class="card">
 
-    <div class="section-title">
-      🍔 Tashqarida ovqat
+    <div class="title">
+      🍱 Tashqari ovqat
     </div>
 
-    <label>
-      Tashqarida ovqatlangan xodimlar
-    </label>
+    <div class="field">
 
-    <div
-      class="employee-box"
-      id="tashqariXodimlar"
-    >
+      <label>
+        Xodimlar
+      </label>
 
-      <div class="empty-message">
-        Xodimlar yuklanmoqda...
+      <div
+        id="tashqariEmployees"
+        class="employee-list">
       </div>
 
     </div>
 
 
-    <label>
-      Tashqari summa
-    </label>
+    <div class="field">
 
-    <div class="money">
+      <label>
+        Tashqari ovqat summasi
+      </label>
 
       <input
         type="number"
         id="tashqariSumma"
-        min="0"
+        class="amount"
         placeholder="0"
+        min="0"
       >
-
-      <span class="currency">
-        so‘m
-      </span>
 
     </div>
 
@@ -510,44 +521,41 @@ Sabzi - 2 kg"
 
 
   <!-- KECHKI -->
+
   <div class="card">
 
-    <div class="section-title">
+    <div class="title">
       🌙 Kechki ovqat
     </div>
 
-    <label>
-      Kechki ovqatlangan xodimlar
-    </label>
 
-    <div
-      class="employee-box"
-      id="kechkiXodimlar"
-    >
+    <div class="field">
 
-      <div class="empty-message">
-        Xodimlar yuklanmoqda...
+      <label>
+        Xodimlar
+      </label>
+
+      <div
+        id="kechkiEmployees"
+        class="employee-list">
       </div>
 
     </div>
 
 
-    <label>
-      Kechki summa
-    </label>
+    <div class="field">
 
-    <div class="money">
+      <label>
+        Kechki ovqat summasi
+      </label>
 
       <input
         type="number"
         id="kechkiSumma"
-        min="0"
+        class="amount"
         placeholder="0"
+        min="0"
       >
-
-      <span class="currency">
-        so‘m
-      </span>
 
     </div>
 
@@ -555,49 +563,51 @@ Sabzi - 2 kg"
 
 
   <!-- RASMLAR -->
+
   <div class="card">
 
-    <div class="section-title">
-      📷 Rasmlar
+    <div class="title">
+      📸 Xarajat rasmlari
     </div>
 
-    <div class="counter">
-      1–3 ta rasm yuklash mumkin
+
+    <div class="photo-box">
+
+      <label for="photos">
+
+        <div class="photo-icon">
+          📷
+        </div>
+
+        <div class="photo-text">
+          1–3 ta rasm tanlang
+        </div>
+
+      </label>
+
+      <input
+        type="file"
+        id="photos"
+        accept="image/*"
+        multiple
+      >
+
     </div>
+
 
     <div
-      class="photo-area"
-      id="photoArea"
-    >
-
-      <button
-        type="button"
-        class="photo-button"
-        onclick="openPhotoPicker()"
-      >
-        ➕
-        <br>
-        Rasm qo‘shish
-      </button>
-
+      id="photoPreview"
+      class="photo-preview">
     </div>
-
-    <input
-      type="file"
-      id="photoInput"
-      accept="image/*"
-      capture="environment"
-      multiple
-      style="display:none"
-    >
 
   </div>
 
 
   <!-- IZOH -->
+
   <div class="card">
 
-    <div class="section-title">
+    <div class="title">
       📝 Izoh
     </div>
 
@@ -610,1034 +620,642 @@ Sabzi - 2 kg"
 
 
   <!-- SAQLASH -->
+
   <button
-    class="save-button"
     id="saveButton"
-    onclick="saveData()"
-  >
+    class="save-button"
+    onclick="saveData()">
+
     💾 SAQLASH
+
   </button>
 
-
-  <div
-    class="status"
-    id="status"
-  ></div>
 
 </div>
 
 
 <script>
 
-  /*
-  ============================================================
-  TELEGRAM
-  ============================================================
-  */
 
-  const tg =
-    window.Telegram &&
-    window.Telegram.WebApp
-      ? window.Telegram.WebApp
-      : null;
+/************************************************
+ * TELEGRAM
+ ************************************************/
+
+const tg =
+  window.Telegram &&
+  window.Telegram.WebApp
+    ? window.Telegram.WebApp
+    : null;
 
 
-  if (tg) {
+if (tg) {
 
-    tg.ready();
+  tg.ready();
 
-    tg.expand();
+  tg.expand();
 
-    tg.enableClosingConfirmation();
+}
 
+
+/************************************************
+ * GOOGLE APPS SCRIPT URL
+ ************************************************/
+
+const BACKEND_URL =
+  "https://script.google.com/macros/s/AKfycbw0AKuzk39NcBvY6dtUWdMSBEvGntHMX4MnsUwgpGMSgaheWLfqVniQNUiL2APmBfDt6g/exec";
+
+
+/************************************************
+ * XODIMLAR
+ *
+ * Hozircha test uchun.
+ ************************************************/
+
+const employees = [
+
+  {
+    id: "001",
+    fio: "Xodim 1",
+    lavozim: "Lavozim"
+  },
+
+  {
+    id: "002",
+    fio: "Xodim 2",
+    lavozim: "Lavozim"
+  },
+
+  {
+    id: "003",
+    fio: "Xodim 3",
+    lavozim: "Lavozim"
+  },
+
+  {
+    id: "004",
+    fio: "Xodim 4",
+    lavozim: "Lavozim"
+  },
+
+  {
+    id: "005",
+    fio: "Xodim 5",
+    lavozim: "Lavozim"
   }
 
+];
 
-  /*
-  ============================================================
-  GOOGLE APPS SCRIPT BACKEND
-  ============================================================
 
-  MUHIM:
+/************************************************
+ * SAHIFANI YUKLASH
+ ************************************************/
 
-  BU YERGA O'ZINGIZNING /exec URL'ingizni QO'YING.
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
 
-  Masalan:
+    setToday();
 
-  https://script.google.com/macros/s/XXXXXXXX/exec
-
-  ============================================================
-  */
-
-  const BACKEND_URL =
-    "https://script.google.com/macros/s/AKfycbw0AKuzk39NcBvY6dtUWdMSBEvGntHMX4MnsUwgpGMSgaheWLfqVniQNUiL2APmBfDt6g/exec";
-
-
-  /*
-  ============================================================
-  SANA
-  ============================================================
-  */
-
-  function setToday() {
-
-    const now =
-      new Date();
-
-
-    const year =
-      now.getFullYear();
-
-
-    const month =
-      String(
-        now.getMonth() + 1
-      ).padStart(2, "0");
-
-
-    const day =
-      String(
-        now.getDate()
-      ).padStart(2, "0");
-
-
-    document.getElementById(
-      "sana"
-    ).value =
-      `${year}-${month}-${day}`;
-
-  }
-
-
-  /*
-  ============================================================
-  HOZIRCHA TEST XODIMLAR
-  ============================================================
-
-  KEYINGI BOSQICHDA BULAR GOOGLE SHEET'DAN
-  AVTOMATIK KELADI.
-
-  ============================================================
-  */
-
-  const employees = [
-
-    {
-      id: "001",
-      fio: "Xodim 1",
-      lavozim: "Lavozim"
-    },
-
-    {
-      id: "002",
-      fio: "Xodim 2",
-      lavozim: "Lavozim"
-    },
-
-    {
-      id: "003",
-      fio: "Xodim 3",
-      lavozim: "Lavozim"
-    },
-
-    {
-      id: "004",
-      fio: "Xodim 4",
-      lavozim: "Lavozim"
-    },
-
-    {
-      id: "005",
-      fio: "Xodim 5",
-      lavozim: "Lavozim"
-    }
-
-  ];
-
-
-  /*
-  ============================================================
-  XODIMLARNI CHIQARISH
-  ============================================================
-  */
-
-  function renderEmployees() {
-
-    const boxes = [
-
-      "oshxonaXodimlar",
-
-      "tashqariXodimlar",
-
-      "kechkiXodimlar"
-
-    ];
-
-
-    boxes.forEach(
-      function(boxId) {
-
-        const box =
-          document.getElementById(
-            boxId
-          );
-
-
-        box.innerHTML = "";
-
-
-        if (
-          !employees ||
-          employees.length === 0
-        ) {
-
-          box.innerHTML = `
-            <div class="empty-message">
-              Xodimlar topilmadi
-            </div>
-          `;
-
-          return;
-
-        }
-
-
-        employees.forEach(
-          function(employee) {
-
-            const row =
-              document.createElement(
-                "label"
-              );
-
-
-            row.className =
-              "employee-row";
-
-
-            row.innerHTML = `
-
-              <input
-                type="checkbox"
-                value="${escapeHtml(employee.id)}"
-                data-fio="${escapeHtml(employee.fio)}"
-                data-lavozim="${escapeHtml(employee.lavozim)}"
-              >
-
-              <span class="employee-name">
-
-                ${escapeHtml(employee.fio)}
-
-                <span class="employee-position">
-                  ${escapeHtml(employee.lavozim)}
-                </span>
-
-              </span>
-
-            `;
-
-
-            box.appendChild(row);
-
-          }
-        );
-
-      }
+    renderEmployees(
+      "oshxonaEmployees",
+      "oshxona"
     );
 
-  }
+    renderEmployees(
+      "tashqariEmployees",
+      "tashqari"
+    );
 
-
-  /*
-  ============================================================
-  HTML XAVFSIZLIGI
-  ============================================================
-  */
-
-  function escapeHtml(text) {
-
-    return String(text)
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  /*
-  ============================================================
-  RASMLAR
-  ============================================================
-  */
-
-  let selectedPhotos = [];
-
-
-  function openPhotoPicker() {
+    renderEmployees(
+      "kechkiEmployees",
+      "kechki"
+    );
 
     document
-      .getElementById("photoInput")
-      .click();
+      .getElementById("photos")
+      .addEventListener(
+        "change",
+        previewPhotos
+      );
 
   }
+);
 
+
+/************************************************
+ * BUGUNGI SANA
+ ************************************************/
+
+function setToday() {
+
+  const date =
+    new Date();
+
+  const year =
+    date.getFullYear();
+
+  const month =
+    String(
+      date.getMonth() + 1
+    ).padStart(2, "0");
+
+  const day =
+    String(
+      date.getDate()
+    ).padStart(2, "0");
 
   document
-    .getElementById("photoInput")
-    .addEventListener(
-      "change",
-      function(event) {
-
-        const files =
-          Array.from(
-            event.target.files
-          );
-
-
-        if (
-          selectedPhotos.length +
-          files.length >
-          3
-        ) {
-
-          showStatus(
-            "❌ Ko‘pi bilan 3 ta rasm yuklash mumkin.",
-            "error"
-          );
-
-          this.value = "";
-
-          return;
-
-        }
+    .getElementById("sana")
+    .value =
+      year +
+      "-" +
+      month +
+      "-" +
+      day;
+}
 
 
-        files.forEach(
-          function(file) {
+/************************************************
+ * XODIMLARNI CHIQARISH
+ ************************************************/
 
-            if (
-              !file.type.startsWith(
-                "image/"
-              )
-            ) {
+function renderEmployees(
+  containerId,
+  group
+) {
 
-              return;
-
-            }
-
-
-            selectedPhotos.push(
-              file
-            );
-
-          }
-        );
-
-
-        renderPhotos();
-
-
-        this.value = "";
-
-      }
+  const container =
+    document.getElementById(
+      containerId
     );
 
-
-  function renderPhotos() {
-
-    const area =
-      document.getElementById(
-        "photoArea"
-      );
+  container.innerHTML = "";
 
 
-    area.innerHTML = "";
+  employees.forEach(
+    function(employee) {
+
+      const div =
+        document.createElement("label");
+
+      div.className =
+        "employee";
 
 
-    selectedPhotos.forEach(
-      function(file, index) {
+      div.innerHTML = `
 
-        const box =
-          document.createElement(
-            "div"
-          );
+        <input
+          type="checkbox"
+          data-group="${group}"
+          data-id="${employee.id}"
+          value="${employee.id}"
+        >
 
+        <div class="employee-info">
 
-        box.className =
-          "photo-preview";
+          <div class="employee-name">
+            ${employee.fio}
+          </div>
 
+          <div class="employee-position">
+            ${employee.lavozim}
+          </div>
 
-        const img =
-          document.createElement(
-            "img"
-          );
+        </div>
 
-
-        img.src =
-          URL.createObjectURL(
-            file
-          );
-
-
-        const remove =
-          document.createElement(
-            "button"
-          );
+      `;
 
 
-        remove.type =
-          "button";
-
-
-        remove.className =
-          "remove-photo";
-
-
-        remove.innerHTML =
-          "×";
-
-
-        remove.onclick =
-          function() {
-
-            selectedPhotos.splice(
-              index,
-              1
-            );
-
-
-            renderPhotos();
-
-          };
-
-
-        box.appendChild(
-          img
-        );
-
-
-        box.appendChild(
-          remove
-        );
-
-
-        area.appendChild(
-          box
-        );
-
-      }
-    );
-
-
-    if (
-      selectedPhotos.length <
-      3
-    ) {
-
-      const button =
-        document.createElement(
-          "button"
-        );
-
-
-      button.type =
-        "button";
-
-
-      button.className =
-        "photo-button";
-
-
-      button.innerHTML =
-        "➕<br>Rasm qo‘shish";
-
-
-      button.onclick =
-        openPhotoPicker;
-
-
-      area.appendChild(
-        button
-      );
+      container.appendChild(div);
 
     }
-
-  }
-
-
-  /*
-  ============================================================
-  TANLANGAN XODIMLAR
-  ============================================================
-  */
-
-  function getSelectedEmployees(
-    boxId
-  ) {
-
-    const box =
-      document.getElementById(
-        boxId
-      );
-
-
-    const checkboxes =
-      box.querySelectorAll(
-        'input[type="checkbox"]:checked'
-      );
-
-
-    return Array
-      .from(checkboxes)
-      .map(
-        function(cb) {
-
-          return {
-
-            id:
-              cb.value,
-
-            fio:
-              cb.dataset.fio,
-
-            lavozim:
-              cb.dataset.lavozim
-
-          };
-
-        }
-      );
-
-  }
-
-
-  /*
-  ============================================================
-  FORM DATA
-  ============================================================
-  */
-
-  function collectData() {
-
-    return {
-
-      sana:
-        document
-          .getElementById(
-            "sana"
-          )
-          .value,
-
-
-      oshxonaXodimlar:
-        getSelectedEmployees(
-          "oshxonaXodimlar"
-        ),
-
-
-      oshxonaItems:
-        document
-          .getElementById(
-            "oshxonaItems"
-          )
-          .value
-          .trim(),
-
-
-      oshxonaHafta:
-        document
-          .getElementById(
-            "oshxonaHafta"
-          )
-          .value,
-
-
-      tashqariXodimlar:
-        getSelectedEmployees(
-          "tashqariXodimlar"
-        ),
-
-
-      tashqariSumma:
-        Number(
-          document
-            .getElementById(
-              "tashqariSumma"
-            )
-            .value || 0
-        ),
-
-
-      kechkiXodimlar:
-        getSelectedEmployees(
-          "kechkiXodimlar"
-        ),
-
-
-      kechkiSumma:
-        Number(
-          document
-            .getElementById(
-              "kechkiSumma"
-            )
-            .value || 0
-        ),
-
-
-      izoh:
-        document
-          .getElementById(
-            "izoh"
-          )
-          .value
-          .trim()
-
-    };
-
-  }
-
-
-  /*
-  ============================================================
-  VALIDATSIYA
-  ============================================================
-  */
-
-  function validateData(data) {
-
-    if (!data.sana) {
-
-      return "❌ Sanani kiriting.";
-
-    }
-
-
-    const hasEmployees =
-      data.oshxonaXodimlar.length > 0 ||
-      data.tashqariXodimlar.length > 0 ||
-      data.kechkiXodimlar.length > 0;
-
-
-    const hasMoney =
-      data.tashqariSumma > 0 ||
-      data.kechkiSumma > 0;
-
-
-    const hasItems =
-      data.oshxonaItems.length > 0;
-
-
-    if (
-      !hasEmployees &&
-      !hasMoney &&
-      !hasItems
-    ) {
-
-      return "❌ Hech qanday ma’lumot kiritilmadi.";
-
-    }
-
-
-    if (
-      data.tashqariSumma > 0 &&
-      data.tashqariXodimlar.length === 0
-    ) {
-
-      return "❌ Tashqari summa bor, lekin xodim tanlanmagan.";
-
-    }
-
-
-    if (
-      data.kechkiSumma > 0 &&
-      data.kechkiXodimlar.length === 0
-    ) {
-
-      return "❌ Kechki summa bor, lekin xodim tanlanmagan.";
-
-    }
-
-
-    if (
-      data.oshxonaItems &&
-      !data.oshxonaHafta
-    ) {
-
-      return "❌ Oshxona mahsulotlari kiritilgan. Haftani tanlang.";
-
-    }
-
-
-    return null;
-
-  }
-
-
-  /*
-  ============================================================
-  SAQLASH
-  ============================================================
-  */
-
-  async function saveData() {
-
-    const data =
-      collectData();
-
-
-    const validationError =
-      validateData(
-        data
-      );
-
-
-    if (validationError) {
-
-      showStatus(
-        validationError,
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    if (
-      !BACKEND_URL ||
-      BACKEND_URL.includes(
-        "BU_YERGA"
-      )
-    ) {
-
-      showStatus(
-        "❌ Apps Script URL hali kiritilmagan.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const button =
-      document.getElementById(
-        "saveButton"
-      );
-
-
-    button.disabled =
-      true;
-
-
-    button.innerHTML =
-      "⏳ Saqlanmoqda...";
-
-
-    showStatus(
-      "⏳ Ma’lumot serverga yuborilmoqda...",
-      "loading"
-    );
-
-
-    /*
-    ==========================================================
-    TELEGRAM FOYDALANUVCHISI
-    ==========================================================
-    */
-
-    let telegramUser = null;
-
-
-    if (
-      tg &&
-      tg.initDataUnsafe &&
-      tg.initDataUnsafe.user
-    ) {
-
-      telegramUser =
-        tg.initDataUnsafe.user;
-
-    }
-
-
-    /*
-    ==========================================================
-    SERVERGA YUBORILADIGAN MA'LUMOT
-    ==========================================================
-    */
-
-    const payload = {
-
-      telegramUser:
-        telegramUser,
-
-
-      sana:
-        data.sana,
-
-
-      oshxonaXodimlar:
-        data.oshxonaXodimlar,
-
-
-      oshxonaItems:
-        data.oshxonaItems,
-
-
-      oshxonaHafta:
-        data.oshxonaHafta,
-
-
-      tashqariXodimlar:
-        data.tashqariXodimlar,
-
-
-      tashqariSumma:
-        data.tashqariSumma,
-
-
-      kechkiXodimlar:
-        data.kechkiXodimlar,
-
-
-      kechkiSumma:
-        data.kechkiSumma,
-
-
-      izoh:
-        data.izoh
-
-    };
-
-
-    console.log(
-      "YUBORILAYOTGAN DATA:",
-      payload
-    );
-
-
-    try {
-
-  await fetch(
-    BACKEND_URL,
-    {
-      method: "POST",
-
-      mode: "no-cors",
-
-      headers: {
-        "Content-Type":
-          "text/plain;charset=utf-8"
-      },
-
-      body:
-        JSON.stringify(payload)
-    }
-  );
-
-
-  /*
-  ==========================================================
-  MUHIM
-
-  no-cors sababli server javobini o'qiy olmaymiz.
-
-  Lekin POST so'rov Apps Script'ga yuboriladi
-  va Apps Script Google Sheet'ga yozadi.
-  ==========================================================
-  */
-
-
-  button.disabled = false;
-
-  button.innerHTML =
-    "💾 SAQLASH";
-
-
-  showStatus(
-    "✅ Ma’lumot yuborildi va saqlanmoqda...",
-    "success"
-  );
-
-
-  clearForm();
-
-
-} catch (error) {
-
-  console.error(
-    "SAQLASH XATOSI:",
-    error
-  );
-
-
-  button.disabled = false;
-
-  button.innerHTML =
-    "💾 SAQLASH";
-
-
-  showStatus(
-    "❌ Yuborishda xatolik: " +
-    error.message,
-    "error"
   );
 
 }
 
 
-  /*
-  ============================================================
-  FORMNI TOZALASH
-  ============================================================
-  */
+/************************************************
+ * TANLANGAN XODIMLARNI OLISH
+ ************************************************/
 
-  function clearForm() {
+function getSelectedEmployees(
+  group
+) {
 
+  const checkboxes =
+    document.querySelectorAll(
+      `input[data-group="${group}"]:checked`
+    );
+
+
+  return Array.from(
+    checkboxes
+  ).map(
+    function(checkbox) {
+
+      const employee =
+        employees.find(
+          function(x) {
+
+            return (
+              x.id ===
+              checkbox.dataset.id
+            );
+
+          }
+        );
+
+
+      return {
+
+        id:
+          employee.id,
+
+        fio:
+          employee.fio,
+
+        lavozim:
+          employee.lavozim
+
+      };
+
+    }
+  );
+
+}
+
+
+/************************************************
+ * RASMLARNI KO‘RSATISH
+ ************************************************/
+
+function previewPhotos(event) {
+
+  const files =
+    Array.from(
+      event.target.files
+    );
+
+
+  if (files.length > 3) {
+
+    showStatus(
+      "❌ Maksimal 3 ta rasm tanlash mumkin.",
+      "error"
+    );
+
+    event.target.value = "";
+
+    return;
+
+  }
+
+
+  const preview =
+    document.getElementById(
+      "photoPreview"
+    );
+
+
+  preview.innerHTML = "";
+
+
+  files.forEach(
+    function(file) {
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(e) {
+
+          const img =
+            document.createElement("img");
+
+          img.src =
+            e.target.result;
+
+          preview.appendChild(img);
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+/************************************************
+ * MA'LUMOTNI YIG‘ISH
+ ************************************************/
+
+function collectData() {
+
+  const telegramUser =
+    tg &&
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user
+      ? tg.initDataUnsafe.user
+      : {};
+
+
+  return {
+
+    sana:
+      document
+        .getElementById("sana")
+        .value,
+
+    oshxonaXodimlar:
+      getSelectedEmployees(
+        "oshxona"
+      ),
+
+    oshxonaItems:
+      document
+        .getElementById("oshxonaItems")
+        .value
+        .trim(),
+
+    oshxonaHafta:
+      document
+        .getElementById("oshxonaHafta")
+        .value,
+
+    tashqariXodimlar:
+      getSelectedEmployees(
+        "tashqari"
+      ),
+
+    tashqariSumma:
+      document
+        .getElementById("tashqariSumma")
+        .value,
+
+    kechkiXodimlar:
+      getSelectedEmployees(
+        "kechki"
+      ),
+
+    kechkiSumma:
+      document
+        .getElementById("kechkiSumma")
+        .value,
+
+    izoh:
+      document
+        .getElementById("izoh")
+        .value
+        .trim(),
+
+    telegramUser:
+      telegramUser
+
+  };
+
+}
+
+
+/************************************************
+ * SAQLASH
+ ************************************************/
+
+async function saveData() {
+
+  const button =
+    document.getElementById(
+      "saveButton"
+    );
+
+
+  /**********************************************
+   * VALIDATSIYA
+   **********************************************/
+
+  const sana =
     document
-      .getElementById(
-        "oshxonaItems"
-      )
-      .value = "";
+      .getElementById("sana")
+      .value;
 
 
+  if (!sana) {
+
+    showStatus(
+      "❌ Sanani tanlang.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const payload =
+    collectData();
+
+
+  const photos =
     document
-      .getElementById(
-        "oshxonaHafta"
-      )
-      .value = "";
+      .getElementById("photos")
+      .files;
 
 
-    document
-      .getElementById(
-        "tashqariSumma"
-      )
-      .value = "";
+  if (
+    photos &&
+    photos.length > 3
+  ) {
+
+    showStatus(
+      "❌ Maksimal 3 ta rasm.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
-    document
-      .getElementById(
-        "kechkiSumma"
-      )
-      .value = "";
+  /**********************************************
+   * BUTTON
+   **********************************************/
+
+  button.disabled = true;
+
+  button.innerHTML =
+    "⏳ SAQLANMOQDA...";
 
 
-    document
-      .getElementById(
-        "izoh"
-      )
-      .value = "";
+  /**********************************************
+   * SERVERGA YUBORISH
+   **********************************************/
+
+  try {
+
+    await fetch(
+
+      BACKEND_URL,
+
+      {
+
+        method: "POST",
+
+        mode: "no-cors",
+
+        headers: {
+
+          "Content-Type":
+            "text/plain;charset=utf-8"
+
+        },
+
+        body:
+          JSON.stringify(
+            payload
+          )
+
+      }
+
+    );
 
 
-    const checkboxes =
-      document.querySelectorAll(
-        'input[type="checkbox"]'
-      );
+    /******************************************
+     * MUVAFFAQIYAT
+     ******************************************/
+
+    button.disabled = false;
+
+    button.innerHTML =
+      "💾 SAQLASH";
 
 
-    checkboxes.forEach(
-      function(cb) {
+    showStatus(
+      "✅ Ma’lumot yuborildi va saqlanmoqda.",
+      "success"
+    );
 
-        cb.checked =
-          false;
+
+    clearForm();
+
+
+  } catch (error) {
+
+    console.error(
+      "SAQLASH XATOSI:",
+      error
+    );
+
+
+    button.disabled = false;
+
+    button.innerHTML =
+      "💾 SAQLASH";
+
+
+    showStatus(
+      "❌ Saqlashda xatolik: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/************************************************
+ * FORMNI TOZALASH
+ ************************************************/
+
+function clearForm() {
+
+  document
+    .getElementById("oshxonaItems")
+    .value = "";
+
+
+  document
+    .getElementById("oshxonaHafta")
+    .value = "";
+
+
+  document
+    .getElementById("tashqariSumma")
+    .value = "";
+
+
+  document
+    .getElementById("kechkiSumma")
+    .value = "";
+
+
+  document
+    .getElementById("izoh")
+    .value = "";
+
+
+  document
+    .getElementById("photos")
+    .value = "";
+
+
+  document
+    .getElementById("photoPreview")
+    .innerHTML = "";
+
+
+  document
+    .querySelectorAll(
+      'input[type="checkbox"]'
+    )
+    .forEach(
+      function(checkbox) {
+
+        checkbox.checked = false;
 
       }
     );
 
-
-    selectedPhotos =
-      [];
+}
 
 
-    renderPhotos();
+/************************************************
+ * STATUS
+ ************************************************/
+
+function showStatus(
+  message,
+  type
+) {
+
+  const status =
+    document.getElementById(
+      "status"
+    );
 
 
-    setToday();
-
-  }
-
-
-  /*
-  ============================================================
-  STATUS
-  ============================================================
-  */
-
-  function showStatus(
-    message,
-    type
-  ) {
-
-    const status =
-      document.getElementById(
-        "status"
-      );
+  status.className =
+    "status " + type;
 
 
-    status.textContent =
-      message;
+  status.textContent =
+    message;
 
 
-    status.className =
-      "status show " +
-      type;
+  status.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
 
+}
 
-    if (
-      type !== "loading"
-    ) {
-
-      setTimeout(
-        function() {
-
-          status.className =
-            "status";
-
-        },
-        5000
-      );
-
-    }
-
-  }
-
-
-  /*
-  ============================================================
-  START
-  ============================================================
-  */
-
-  setToday();
-
-  renderEmployees();
-
-  renderPhotos();
 
 </script>
 
+
 </body>
+
 </html>
