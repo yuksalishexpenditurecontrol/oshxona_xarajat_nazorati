@@ -14,7 +14,6 @@
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-
   <style>
 
     * {
@@ -22,6 +21,29 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    :root {
+      --tg-bg: var(--tg-theme-bg-color, #f4f6f8);
+      --tg-text: var(--tg-theme-text-color, #17212b);
+      --tg-hint: var(--tg-theme-hint-color, #7d8790);
+      --tg-card: var(--tg-theme-secondary-bg-color, #ffffff);
+      --tg-button: var(--tg-theme-button-color, #229ed9);
+      --tg-button-text: var(--tg-theme-button-text-color, #ffffff);
+
+      --border: rgba(120, 130, 140, 0.20);
+      --soft: rgba(120, 130, 140, 0.08);
+
+      --success-bg: #e8f7ed;
+      --success-text: #16833a;
+
+      --error-bg: #fdecec;
+      --error-text: #c62828;
+
+      --radius: 18px;
+    }
+
+    html {
+      background: var(--tg-bg);
+    }
 
     body {
       margin: 0;
@@ -35,90 +57,279 @@
         Arial,
         sans-serif;
 
-      background: #f4f6f8;
+      background:
+        linear-gradient(
+          180deg,
+          var(--tg-bg) 0%,
+          var(--tg-bg) 100%
+        );
 
-      color: #202124;
+      color: var(--tg-text);
+
+      min-height: 100vh;
     }
 
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
 
     .container {
       width: 100%;
-      max-width: 650px;
+      max-width: 680px;
 
       margin: 0 auto;
 
-      padding: 16px;
-      padding-bottom: 40px;
+      padding: 12px;
+
+      padding-bottom: 100px;
     }
 
+    /* =========================
+       HEADER
+    ========================== */
 
     .header {
-      background: white;
+      position: relative;
 
-      border-radius: 18px;
+      overflow: hidden;
 
-      padding: 18px;
+      background: var(--tg-card);
 
-      margin-bottom: 14px;
+      border-radius: 24px;
+
+      padding: 22px 18px;
+
+      margin-bottom: 12px;
+
+      border: 1px solid var(--border);
 
       box-shadow:
-        0 2px 10px rgba(0,0,0,0.06);
+        0 5px 20px rgba(0,0,0,0.05);
     }
 
+    .header::before {
+      content: "";
+
+      position: absolute;
+
+      width: 140px;
+      height: 140px;
+
+      right: -55px;
+      top: -60px;
+
+      border-radius: 50%;
+
+      background: var(--tg-button);
+
+      opacity: 0.10;
+    }
+
+    .header-icon {
+      width: 62px;
+      height: 62px;
+
+      margin: 0 auto 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 20px;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 13%,
+          transparent
+        );
+
+      font-size: 32px;
+    }
 
     .header h1 {
+      position: relative;
+
       margin: 0;
 
-      font-size: 23px;
-
       text-align: center;
+
+      font-size: 24px;
+      font-weight: 800;
+
+      letter-spacing: -0.4px;
     }
 
-
     .header p {
+      position: relative;
+
       margin: 7px 0 0;
 
       text-align: center;
 
-      color: #777;
+      color: var(--tg-hint);
 
       font-size: 14px;
     }
 
+    /* =========================
+       STATUS
+    ========================== */
 
-    .card {
-      background: white;
+    .status {
+      display: none;
 
-      border-radius: 18px;
+      padding: 14px 15px;
 
-      padding: 18px;
+      border-radius: 15px;
 
-      margin-bottom: 14px;
+      margin-bottom: 12px;
 
-      box-shadow:
-        0 2px 10px rgba(0,0,0,0.06);
-    }
-
-
-    .title {
-      font-size: 17px;
+      font-size: 14px;
 
       font-weight: 700;
 
-      margin-bottom: 13px;
+      text-align: center;
+
+      line-height: 1.4;
     }
 
-
-    label {
+    .status.success {
       display: block;
 
-      font-size: 14px;
+      background: var(--success-bg);
 
-      font-weight: 600;
-
-      margin-bottom: 7px;
+      color: var(--success-text);
     }
 
+    .status.error {
+      display: block;
+
+      background: var(--error-bg);
+
+      color: var(--error-text);
+    }
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      background: var(--tg-card);
+
+      border-radius: var(--radius);
+
+      padding: 17px;
+
+      margin-bottom: 12px;
+
+      border: 1px solid var(--border);
+
+      box-shadow:
+        0 4px 18px rgba(0,0,0,0.045);
+    }
+
+    .card-title {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-bottom: 14px;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 12%,
+          transparent
+        );
+
+      font-size: 20px;
+
+      flex-shrink: 0;
+    }
+
+    .card-title-text {
+      flex: 1;
+    }
+
+    .card-title-text h2 {
+      margin: 0;
+
+      font-size: 17px;
+
+      font-weight: 800;
+    }
+
+    .card-title-text p {
+      margin: 2px 0 0;
+
+      font-size: 12px;
+
+      color: var(--tg-hint);
+    }
+
+    /* =========================
+       DATE
+    ========================== */
+
+    .date-wrapper {
+      position: relative;
+    }
+
+    .date-wrapper input {
+      padding-left: 45px;
+    }
+
+    .date-icon {
+      position: absolute;
+
+      left: 14px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      font-size: 19px;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       INPUTS
+    ========================== */
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
+    }
+
+    label.field-label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
 
     input,
     textarea,
@@ -126,26 +337,39 @@
 
       width: 100%;
 
-      border: 1px solid #d8dce1;
+      border: 1px solid var(--border);
 
-      border-radius: 12px;
+      border-radius: 13px;
 
-      padding: 13px;
+      padding: 13px 14px;
 
       font-size: 16px;
 
       outline: none;
 
-      background: #fff;
-    }
+      color: var(--tg-text);
 
+      background: var(--tg-bg);
+
+      transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+    }
 
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: #229ed9;
-    }
 
+      border-color: var(--tg-button);
+
+      box-shadow:
+        0 0 0 3px
+        color-mix(
+          in srgb,
+          var(--tg-button) 13%,
+          transparent
+        );
+    }
 
     textarea {
       min-height: 90px;
@@ -153,23 +377,52 @@
       resize: vertical;
     }
 
+    .amount-input {
+      font-size: 19px;
 
-    .field {
-      margin-bottom: 15px;
+      font-weight: 700;
     }
 
+    .amount-input::placeholder {
+      font-size: 14px;
 
-    .employee-list {
+      font-weight: 400;
+    }
+
+    /* =========================
+       EMPLOYEE SELECTOR
+    ========================== */
+
+    .employee-box {
+      margin-top: 10px;
+    }
+
+    .employee-summary {
+
+      width: 100%;
 
       display: flex;
 
-      flex-direction: column;
+      align-items: center;
 
-      gap: 8px;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      padding: 13px 14px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 13px;
+
+      background: var(--tg-bg);
+
+      cursor: pointer;
+
+      user-select: none;
     }
 
-
-    .employee {
+    .employee-summary-left {
 
       display: flex;
 
@@ -177,85 +430,401 @@
 
       gap: 10px;
 
-      padding: 11px;
-
-      border: 1px solid #e1e4e8;
-
-      border-radius: 12px;
-
-      cursor: pointer;
+      min-width: 0;
     }
 
+    .employee-summary-icon {
+      font-size: 18px;
+    }
+
+    .employee-summary-text {
+      font-size: 14px;
+
+      font-weight: 700;
+    }
+
+    .employee-count {
+      min-width: 27px;
+      height: 27px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 8px;
+
+      border-radius: 20px;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 13%,
+          transparent
+        );
+
+      color: var(--tg-button);
+
+      font-size: 12px;
+
+      font-weight: 800;
+    }
+
+    .arrow {
+      font-size: 13px;
+
+      transition: transform 0.2s;
+    }
+
+    .employee-box.open .arrow {
+      transform: rotate(180deg);
+    }
+
+    .employee-list {
+
+      display: none;
+
+      flex-direction: column;
+
+      gap: 7px;
+
+      margin-top: 8px;
+
+      max-height: 280px;
+
+      overflow-y: auto;
+    }
+
+    .employee-box.open .employee-list {
+      display: flex;
+    }
+
+    .employee {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      padding: 11px 12px;
+
+      border: 1px solid var(--border);
+
+      border-radius: 13px;
+
+      background: var(--tg-bg);
+
+      cursor: pointer;
+
+      transition:
+        background 0.15s,
+        border-color 0.15s;
+    }
+
+    .employee:active {
+      transform: scale(0.99);
+    }
+
+    .employee.selected {
+      border-color: var(--tg-button);
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 9%,
+          var(--tg-bg)
+        );
+    }
 
     .employee input {
       width: 20px;
-
       height: 20px;
 
       margin: 0;
-    }
 
+      accent-color: var(--tg-button);
+
+      flex-shrink: 0;
+    }
 
     .employee-info {
       flex: 1;
-    }
 
+      min-width: 0;
+    }
 
     .employee-name {
-      font-weight: 600;
-
       font-size: 14px;
+
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
     }
 
-
     .employee-position {
-      color: #777;
+      color: var(--tg-hint);
 
       font-size: 12px;
 
       margin-top: 2px;
     }
 
+    /* =========================
+       PRODUCTS
+    ========================== */
 
-    .amount {
-      font-size: 20px;
+    .product-list {
+      display: flex;
 
-      font-weight: 700;
+      flex-direction: column;
+
+      gap: 8px;
     }
 
+    .product-row {
+      display: grid;
 
-    .photo-box {
+      grid-template-columns:
+        minmax(0, 1fr)
+        125px
+        40px;
 
-      border: 2px dashed #cdd3d9;
+      gap: 7px;
 
-      border-radius: 14px;
+      align-items: center;
+    }
 
-      padding: 18px;
+    .product-row input {
+      min-width: 0;
+    }
 
-      text-align: center;
+    .remove-product {
+
+      width: 40px;
+      height: 43px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      background: #ffeded;
+
+      color: #e53935;
+
+      font-size: 18px;
 
       cursor: pointer;
     }
 
+    .add-product {
+
+      width: 100%;
+
+      margin-top: 9px;
+
+      padding: 12px;
+
+      border-radius: 13px;
+
+      border: 1px dashed var(--tg-button);
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 7%,
+          transparent
+        );
+
+      color: var(--tg-button);
+
+      font-size: 14px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .total-box {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-top: 11px;
+
+      padding: 14px;
+
+      border-radius: 13px;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 9%,
+          transparent
+        );
+    }
+
+    .total-label {
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+    .total-value {
+
+      font-size: 17px;
+
+      font-weight: 900;
+
+      color: var(--tg-button);
+
+      white-space: nowrap;
+    }
+
+    /* =========================
+       WEEK
+    ========================== */
+
+    .week-title {
+
+      margin-top: 16px;
+      margin-bottom: 8px;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+    .week-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(5, 1fr);
+
+      gap: 6px;
+    }
+
+    .week-button {
+
+      min-height: 58px;
+
+      padding: 7px 4px;
+
+      border-radius: 12px;
+
+      border: 1px solid var(--border);
+
+      background: var(--tg-bg);
+
+      color: var(--tg-text);
+
+      cursor: pointer;
+
+      font-weight: 800;
+
+      font-size: 12px;
+
+      transition:
+        0.15s;
+    }
+
+    .week-button span {
+
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--tg-hint);
+
+      font-size: 10px;
+
+      font-weight: 600;
+    }
+
+    .week-button.active {
+
+      background: var(--tg-button);
+
+      color: var(--tg-button-text);
+
+      border-color: var(--tg-button);
+
+      box-shadow:
+        0 4px 12px
+        color-mix(
+          in srgb,
+          var(--tg-button) 25%,
+          transparent
+        );
+    }
+
+    .week-button.active span {
+      color: inherit;
+
+      opacity: 0.85;
+    }
+
+    /* =========================
+       PHOTOS
+    ========================== */
+
+    .photo-box {
+
+      border: 2px dashed
+        color-mix(
+          in srgb,
+          var(--tg-button) 45%,
+          var(--border)
+        );
+
+      border-radius: 15px;
+
+      padding: 19px 14px;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      background:
+        color-mix(
+          in srgb,
+          var(--tg-button) 4%,
+          transparent
+        );
+    }
 
     .photo-box input {
       display: none;
     }
 
-
     .photo-icon {
-      font-size: 35px;
+      font-size: 34px;
 
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
-
 
     .photo-text {
       font-size: 14px;
 
-      color: #666;
+      font-weight: 700;
     }
 
+    .photo-hint {
+      margin-top: 4px;
+
+      color: var(--tg-hint);
+
+      font-size: 11px;
+    }
 
     .photo-preview {
 
@@ -266,9 +835,12 @@
 
       gap: 8px;
 
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
+    .photo-item {
+      position: relative;
+    }
 
     .photo-preview img {
 
@@ -278,9 +850,25 @@
 
       object-fit: cover;
 
-      border-radius: 10px;
+      border-radius: 12px;
+
+      border: 1px solid var(--border);
     }
 
+    /* =========================
+       SAVE BUTTON
+    ========================== */
+
+    .save-wrapper {
+
+      position: sticky;
+
+      bottom: 10px;
+
+      z-index: 10;
+
+      padding-top: 3px;
+    }
 
     .save-button {
 
@@ -288,77 +876,84 @@
 
       border: none;
 
-      border-radius: 15px;
+      border-radius: 16px;
 
       padding: 16px;
 
       font-size: 17px;
 
-      font-weight: 700;
+      font-weight: 900;
 
-      color: white;
+      color: var(--tg-button-text);
 
-      background: #229ed9;
+      background: var(--tg-button);
 
       cursor: pointer;
+
+      box-shadow:
+        0 7px 20px
+        color-mix(
+          in srgb,
+          var(--tg-button) 28%,
+          transparent
+        );
+
+      transition:
+        transform 0.15s,
+        opacity 0.15s;
     }
 
+    .save-button:active {
+      transform: scale(0.98);
+    }
 
     .save-button:disabled {
-
       opacity: 0.6;
 
       cursor: not-allowed;
+
+      transform: none;
     }
 
-
-    .status {
-
-      display: none;
-
-      padding: 13px;
-
-      border-radius: 12px;
-
-      margin-bottom: 14px;
-
-      font-size: 14px;
-
-      font-weight: 600;
+    .bottom-note {
 
       text-align: center;
+
+      margin-top: 8px;
+
+      color: var(--tg-hint);
+
+      font-size: 10px;
     }
 
+    /* =========================
+       MOBILE
+    ========================== */
 
-    .status.success {
+    @media (max-width: 420px) {
 
-      display: block;
+      .container {
+        padding: 9px;
 
-      background: #e8f7ed;
+        padding-bottom: 95px;
+      }
 
-      color: #16833a;
+      .card {
+        padding: 14px;
+      }
+
+      .product-row {
+        grid-template-columns:
+          minmax(0, 1fr)
+          105px
+          38px;
+      }
+
+      .week-button {
+        font-size: 11px;
+      }
+
     }
-
-
-    .status.error {
-
-      display: block;
-
-      background: #fdecec;
-
-      color: #c62828;
-    }
-
-
-    .small {
-
-      color: #777;
-
-      font-size: 12px;
-
-      margin-top: 5px;
-    }
-
 
   </style>
 
@@ -367,18 +962,28 @@
 
 <body>
 
-
 <div class="container">
 
+  <!-- HEADER -->
 
   <div class="header">
 
-    <h1>🍽️ Ovqat nazorati</h1>
+    <div class="header-icon">
+      🍽️
+    </div>
 
-    <p>Kunlik oshxona xarajatlarini kiriting</p>
+    <h1>
+      Ovqat nazorati
+    </h1>
+
+    <p>
+      Kunlik oshxona xarajatlarini kiriting
+    </p>
 
   </div>
 
+
+  <!-- STATUS -->
 
   <div
     id="status"
@@ -390,11 +995,31 @@
 
   <div class="card">
 
-    <div class="title">
-      📅 Sana
+    <div class="card-title">
+
+      <div class="card-icon">
+        📅
+      </div>
+
+      <div class="card-title-text">
+
+        <h2>
+          Sana
+        </h2>
+
+        <p>
+          Xarajat qaysi kun uchun
+        </p>
+
+      </div>
+
     </div>
 
-    <div class="field">
+    <div class="date-wrapper">
+
+      <span class="date-icon">
+        📅
+      </span>
 
       <input
         type="date"
@@ -406,96 +1031,26 @@
   </div>
 
 
-  <!-- OSHXONA XODIMLARI -->
+  <!-- TASHQARIDAGI TUSHLIK -->
 
   <div class="card">
 
-    <div class="title">
-      👨‍🍳 Oshxona xodimlari
-    </div>
+    <div class="card-title">
 
-    <div
-      id="oshxonaEmployees"
-      class="employee-list">
-    </div>
+      <div class="card-icon">
+        🍱
+      </div>
 
-  </div>
+      <div class="card-title-text">
 
+        <h2>
+          Tashqaridagi tushlik
+        </h2>
 
-  <!-- MAHSULOTLAR -->
+        <p>
+          Oshxonada ovqatlanmagan xodimlar
+        </p>
 
-  <div class="card">
-
-    <div class="title">
-      🛒 Oshxona mahsulotlari
-    </div>
-
-    <div class="field">
-
-      <textarea
-        id="oshxonaItems"
-        placeholder="Masalan: go‘sht, guruch, piyoz, sabzi..."
-      ></textarea>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Oshxona haftasi
-      </label>
-
-      <select id="oshxonaHafta">
-
-        <option value="">
-          Haftani tanlang
-        </option>
-
-        <option value="1-hafta">
-          1-hafta
-        </option>
-
-        <option value="2-hafta">
-          2-hafta
-        </option>
-
-        <option value="3-hafta">
-          3-hafta
-        </option>
-
-        <option value="4-hafta">
-          4-hafta
-        </option>
-
-        <option value="5-hafta">
-          5-hafta
-        </option>
-
-      </select>
-
-    </div>
-
-  </div>
-
-
-  <!-- TASHQARI -->
-
-  <div class="card">
-
-    <div class="title">
-      🍱 Tashqari ovqat
-    </div>
-
-    <div class="field">
-
-      <label>
-        Xodimlar
-      </label>
-
-      <div
-        id="tashqariEmployees"
-        class="employee-list">
       </div>
 
     </div>
@@ -503,41 +1058,274 @@
 
     <div class="field">
 
-      <label>
-        Tashqari ovqat summasi
+      <label class="field-label">
+        Xarajat summasi
       </label>
 
       <input
         type="number"
         id="tashqariSumma"
-        class="amount"
-        placeholder="0"
+        class="amount-input"
+        placeholder="Masalan: 450000"
         min="0"
+        inputmode="numeric"
       >
+
+    </div>
+
+
+    <div
+      class="employee-box"
+      id="tashqariBox"
+    >
+
+      <div
+        class="employee-summary"
+        onclick="toggleEmployees('tashqariBox')"
+      >
+
+        <div class="employee-summary-left">
+
+          <span class="employee-summary-icon">
+            👥
+          </span>
+
+          <span class="employee-summary-text">
+            Xodimlarni tanlash
+          </span>
+
+        </div>
+
+        <span
+          class="employee-count"
+          id="tashqariCount"
+        >
+          0
+        </span>
+
+        <span class="arrow">
+          ▼
+        </span>
+
+      </div>
+
+      <div
+        id="tashqariEmployees"
+        class="employee-list"
+      ></div>
 
     </div>
 
   </div>
 
 
-  <!-- KECHKI -->
+  <!-- OSHXONA -->
 
   <div class="card">
 
-    <div class="title">
-      🌙 Kechki ovqat
+    <div class="card-title">
+
+      <div class="card-icon">
+        👨‍🍳
+      </div>
+
+      <div class="card-title-text">
+
+        <h2>
+          Oshxona
+        </h2>
+
+        <p>
+          Oshxona mahsulotlari va ovqatlangan xodimlar
+        </p>
+
+      </div>
+
     </div>
 
 
+    <!-- PRODUCTS -->
+
     <div class="field">
 
-      <label>
-        Xodimlar
+      <label class="field-label">
+        🛒 Oshxona spiski
       </label>
 
       <div
-        id="kechkiEmployees"
-        class="employee-list">
+        id="productList"
+        class="product-list"
+      ></div>
+
+      <button
+        type="button"
+        class="add-product"
+        onclick="addProduct()"
+      >
+        ＋ Mahsulot qo‘shish
+      </button>
+
+
+      <div class="total-box">
+
+        <span class="total-label">
+          Jami oshxona xarajati
+        </span>
+
+        <span
+          class="total-value"
+          id="kitchenTotal"
+        >
+          0 UZS
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- WEEK -->
+
+    <div class="week-title">
+      Kiritilgan oshxona xarajati qaysi hafta uchun?
+    </div>
+
+    <div
+      class="week-grid"
+      id="weekGrid"
+    >
+
+      <button
+        type="button"
+        class="week-button"
+        data-week="1-hafta"
+        onclick="selectWeek(this)"
+      >
+        1-hafta
+        <span>
+          (1-7)
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="week-button"
+        data-week="2-hafta"
+        onclick="selectWeek(this)"
+      >
+        2-hafta
+        <span>
+          (8-14)
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="week-button"
+        data-week="3-hafta"
+        onclick="selectWeek(this)"
+      >
+        3-hafta
+        <span>
+          (15-21)
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="week-button"
+        data-week="4-hafta"
+        onclick="selectWeek(this)"
+      >
+        4-hafta
+        <span>
+          (22-28)
+        </span>
+      </button>
+
+      <button
+        type="button"
+        class="week-button"
+        data-week="5-hafta"
+        onclick="selectWeek(this)"
+      >
+        5-hafta
+        <span>
+          (29-31)
+        </span>
+      </button>
+
+    </div>
+
+
+    <!-- KITCHEN EMPLOYEES -->
+
+    <div
+      class="employee-box"
+      id="oshxonaBox"
+      style="margin-top: 14px;"
+    >
+
+      <div
+        class="employee-summary"
+        onclick="toggleEmployees('oshxonaBox')"
+      >
+
+        <div class="employee-summary-left">
+
+          <span class="employee-summary-icon">
+            👥
+          </span>
+
+          <span class="employee-summary-text">
+            Oshxonada ovqatlanganlar
+          </span>
+
+        </div>
+
+        <span
+          class="employee-count"
+          id="oshxonaCount"
+        >
+          0
+        </span>
+
+        <span class="arrow">
+          ▼
+        </span>
+
+      </div>
+
+      <div
+        id="oshxonaEmployees"
+        class="employee-list"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- KECHKI OVQAT -->
+
+  <div class="card">
+
+    <div class="card-title">
+
+      <div class="card-icon">
+        🌙
+      </div>
+
+      <div class="card-title-text">
+
+        <h2>
+          Kechki ovqat
+        </h2>
+
+        <p>
+          Kechki ovqat uchun xarajat
+        </p>
+
       </div>
 
     </div>
@@ -545,17 +1333,61 @@
 
     <div class="field">
 
-      <label>
-        Kechki ovqat summasi
+      <label class="field-label">
+        Xarajat summasi
       </label>
 
       <input
         type="number"
         id="kechkiSumma"
-        class="amount"
-        placeholder="0"
+        class="amount-input"
+        placeholder="Masalan: 300000"
         min="0"
+        inputmode="numeric"
       >
+
+    </div>
+
+
+    <div
+      class="employee-box"
+      id="kechkiBox"
+    >
+
+      <div
+        class="employee-summary"
+        onclick="toggleEmployees('kechkiBox')"
+      >
+
+        <div class="employee-summary-left">
+
+          <span class="employee-summary-icon">
+            👥
+          </span>
+
+          <span class="employee-summary-text">
+            Xodimlarni tanlash
+          </span>
+
+        </div>
+
+        <span
+          class="employee-count"
+          id="kechkiCount"
+        >
+          0
+        </span>
+
+        <span class="arrow">
+          ▼
+        </span>
+
+      </div>
+
+      <div
+        id="kechkiEmployees"
+        class="employee-list"
+      ></div>
 
     </div>
 
@@ -566,24 +1398,43 @@
 
   <div class="card">
 
-    <div class="title">
-      📸 Xarajat rasmlari
+    <div class="card-title">
+
+      <div class="card-icon">
+        📸
+      </div>
+
+      <div class="card-title-text">
+
+        <h2>
+          Xarajat rasmi
+        </h2>
+
+        <p>
+          Xarajatni tasdiqlovchi rasmlar
+        </p>
+
+      </div>
+
     </div>
 
 
-    <div class="photo-box">
+    <label
+      for="photos"
+      class="photo-box"
+    >
 
-      <label for="photos">
+      <div class="photo-icon">
+        📷
+      </div>
 
-        <div class="photo-icon">
-          📷
-        </div>
+      <div class="photo-text">
+        Rasm tanlash
+      </div>
 
-        <div class="photo-text">
-          1–3 ta rasm tanlang
-        </div>
-
-      </label>
+      <div class="photo-hint">
+        1–3 ta rasm tanlashingiz mumkin
+      </div>
 
       <input
         type="file"
@@ -592,13 +1443,13 @@
         multiple
       >
 
-    </div>
+    </label>
 
 
     <div
       id="photoPreview"
-      class="photo-preview">
-    </div>
+      class="photo-preview"
+    ></div>
 
   </div>
 
@@ -607,29 +1458,52 @@
 
   <div class="card">
 
-    <div class="title">
-      📝 Izoh
+    <div class="card-title">
+
+      <div class="card-icon">
+        📝
+      </div>
+
+      <div class="card-title-text">
+
+        <h2>
+          Izoh
+        </h2>
+
+        <p>
+          Qo‘shimcha ma'lumot
+        </p>
+
+      </div>
+
     </div>
+
 
     <textarea
       id="izoh"
-      placeholder="Qo‘shimcha izoh..."
+      placeholder="Masalan: mehmonlar uchun qo‘shimcha ovqat olindi..."
     ></textarea>
 
   </div>
 
 
-  <!-- SAQLASH -->
+  <!-- SAVE -->
 
-  <button
-    id="saveButton"
-    class="save-button"
-    onclick="saveData()">
+  <div class="save-wrapper">
 
-    💾 SAQLASH
+    <button
+      id="saveButton"
+      class="save-button"
+      onclick="saveData()"
+    >
+      💾 SAQLASH
+    </button>
 
-  </button>
+    <div class="bottom-note">
+      Ma'lumotlar Google Sheet'ga saqlanadi
+    </div>
 
+  </div>
 
 </div>
 
@@ -637,9 +1511,9 @@
 <script>
 
 
-/************************************************
- * TELEGRAM
- ************************************************/
+/* =====================================================
+   TELEGRAM
+===================================================== */
 
 const tg =
   window.Telegram &&
@@ -657,19 +1531,17 @@ if (tg) {
 }
 
 
-/************************************************
- * GOOGLE APPS SCRIPT URL
- ************************************************/
+/* =====================================================
+   GOOGLE APPS SCRIPT
+===================================================== */
 
 const BACKEND_URL =
   "https://script.google.com/macros/s/AKfycbw0AKuzk39NcBvY6dtUWdMSBEvGntHMX4MnsUwgpGMSgaheWLfqVniQNUiL2APmBfDt6g/exec";
 
 
-/************************************************
- * XODIMLAR
- *
- * Hozircha test uchun.
- ************************************************/
+/* =====================================================
+   XODIMLAR
+===================================================== */
 
 const employees = [
 
@@ -706,9 +1578,18 @@ const employees = [
 ];
 
 
-/************************************************
- * SAHIFANI YUKLASH
- ************************************************/
+/* =====================================================
+   O'ZGARUVCHILAR
+===================================================== */
+
+let selectedWeek = "";
+
+let productCounter = 0;
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -731,6 +1612,8 @@ document.addEventListener(
       "kechki"
     );
 
+    addProduct();
+
     document
       .getElementById("photos")
       .addEventListener(
@@ -742,9 +1625,9 @@ document.addEventListener(
 );
 
 
-/************************************************
- * BUGUNGI SANA
- ************************************************/
+/* =====================================================
+   BUGUNGI SANA
+===================================================== */
 
 function setToday() {
 
@@ -775,9 +1658,9 @@ function setToday() {
 }
 
 
-/************************************************
- * XODIMLARNI CHIQARISH
- ************************************************/
+/* =====================================================
+   EMPLOYEES RENDER
+===================================================== */
 
 function renderEmployees(
   containerId,
@@ -795,20 +1678,23 @@ function renderEmployees(
   employees.forEach(
     function(employee) {
 
-      const div =
-        document.createElement("label");
+      const label =
+        document.createElement(
+          "label"
+        );
 
-      div.className =
+      label.className =
         "employee";
 
 
-      div.innerHTML = `
+      label.innerHTML = `
 
         <input
           type="checkbox"
           data-group="${group}"
           data-id="${employee.id}"
           value="${employee.id}"
+          onchange="employeeChanged(this)"
         >
 
         <div class="employee-info">
@@ -826,7 +1712,9 @@ function renderEmployees(
       `;
 
 
-      container.appendChild(div);
+      container.appendChild(
+        label
+      );
 
     }
   );
@@ -834,9 +1722,180 @@ function renderEmployees(
 }
 
 
-/************************************************
- * TANLANGAN XODIMLARNI OLISH
- ************************************************/
+/* =====================================================
+   EMPLOYEE BOX OPEN/CLOSE
+===================================================== */
+
+function toggleEmployees(
+  boxId
+) {
+
+  const box =
+    document.getElementById(
+      boxId
+    );
+
+  box.classList.toggle(
+    "open"
+  );
+
+}
+
+
+/* =====================================================
+   EMPLOYEE CHANGE
+===================================================== */
+
+function employeeChanged(
+  checkbox
+) {
+
+  const employeeId =
+    checkbox.dataset.id;
+
+  const currentGroup =
+    checkbox.dataset.group;
+
+
+  if (
+    checkbox.checked
+  ) {
+
+    const groups = [
+      "oshxona",
+      "tashqari",
+      "kechki"
+    ];
+
+
+    groups.forEach(
+      function(group) {
+
+        if (
+          group ===
+          currentGroup
+        ) {
+          return;
+        }
+
+
+        const other =
+          document.querySelector(
+            `input[data-group="${group}"][data-id="${employeeId}"]`
+          );
+
+
+        if (other) {
+
+          other.checked =
+            false;
+
+          updateEmployeeVisual(
+            other
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  updateEmployeeVisual(
+    checkbox
+  );
+
+  updateAllCounts();
+
+}
+
+
+/* =====================================================
+   EMPLOYEE VISUAL
+===================================================== */
+
+function updateEmployeeVisual(
+  checkbox
+) {
+
+  const label =
+    checkbox.closest(
+      ".employee"
+    );
+
+  if (!label) {
+    return;
+  }
+
+
+  if (
+    checkbox.checked
+  ) {
+
+    label.classList.add(
+      "selected"
+    );
+
+  } else {
+
+    label.classList.remove(
+      "selected"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   UPDATE COUNTS
+===================================================== */
+
+function updateAllCounts() {
+
+  updateCount(
+    "oshxona",
+    "oshxonaCount"
+  );
+
+  updateCount(
+    "tashqari",
+    "tashqariCount"
+  );
+
+  updateCount(
+    "kechki",
+    "kechkiCount"
+  );
+
+}
+
+
+function updateCount(
+  group,
+  elementId
+) {
+
+  const count =
+    document.querySelectorAll(
+      `input[data-group="${group}"]:checked`
+    ).length;
+
+
+  document
+    .getElementById(
+      elementId
+    )
+    .textContent =
+      count;
+
+}
+
+
+/* =====================================================
+   GET SELECTED EMPLOYEES
+===================================================== */
 
 function getSelectedEmployees(
   group
@@ -885,11 +1944,315 @@ function getSelectedEmployees(
 }
 
 
-/************************************************
- * RASMLARNI KO‘RSATISH
- ************************************************/
+/* =====================================================
+   PRODUCTS
+===================================================== */
 
-function previewPhotos(event) {
+function addProduct() {
+
+  productCounter++;
+
+  const list =
+    document.getElementById(
+      "productList"
+    );
+
+
+  const row =
+    document.createElement(
+      "div"
+    );
+
+  row.className =
+    "product-row";
+
+
+  row.dataset.productId =
+    productCounter;
+
+
+  row.innerHTML = `
+
+    <input
+      type="text"
+      class="product-name"
+      placeholder="Mahsulot nomi"
+    >
+
+    <input
+      type="number"
+      class="product-amount"
+      placeholder="Summa"
+      min="0"
+      inputmode="numeric"
+      oninput="calculateKitchenTotal()"
+    >
+
+    <button
+      type="button"
+      class="remove-product"
+      onclick="removeProduct(this)"
+      title="O‘chirish"
+    >
+      ×
+    </button>
+
+  `;
+
+
+  list.appendChild(
+    row
+  );
+
+}
+
+
+function removeProduct(
+  button
+) {
+
+  const list =
+    document.getElementById(
+      "productList"
+    );
+
+
+  const rows =
+    list.querySelectorAll(
+      ".product-row"
+    );
+
+
+  if (
+    rows.length <= 1
+  ) {
+
+    rows[0]
+      .querySelector(
+        ".product-name"
+      )
+      .value = "";
+
+    rows[0]
+      .querySelector(
+        ".product-amount"
+      )
+      .value = "";
+
+    calculateKitchenTotal();
+
+    return;
+
+  }
+
+
+  button
+    .closest(
+      ".product-row"
+    )
+    .remove();
+
+
+  calculateKitchenTotal();
+
+}
+
+
+/* =====================================================
+   KITCHEN TOTAL
+===================================================== */
+
+function calculateKitchenTotal() {
+
+  let total = 0;
+
+
+  document
+    .querySelectorAll(
+      ".product-amount"
+    )
+    .forEach(
+      function(input) {
+
+        const value =
+          Number(
+            input.value || 0
+          );
+
+        total += value;
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "kitchenTotal"
+    )
+    .textContent =
+      formatMoney(total) +
+      " UZS";
+
+}
+
+
+function getKitchenTotal() {
+
+  let total = 0;
+
+
+  document
+    .querySelectorAll(
+      ".product-amount"
+    )
+    .forEach(
+      function(input) {
+
+        total += Number(
+          input.value || 0
+        );
+
+      }
+    );
+
+
+  return total;
+
+}
+
+
+/* =====================================================
+   PRODUCTS DATA
+===================================================== */
+
+function getProductsData() {
+
+  const products = [];
+
+
+  document
+    .querySelectorAll(
+      ".product-row"
+    )
+    .forEach(
+      function(row) {
+
+        const name =
+          row
+            .querySelector(
+              ".product-name"
+            )
+            .value
+            .trim();
+
+
+        const amount =
+          Number(
+            row
+              .querySelector(
+                ".product-amount"
+              )
+              .value || 0
+          );
+
+
+        if (
+          name ||
+          amount > 0
+        ) {
+
+          products.push({
+
+            name:
+              name,
+
+            amount:
+              amount
+
+          });
+
+        }
+
+      }
+    );
+
+
+  return products;
+
+}
+
+
+/* =====================================================
+   PRODUCTS STRING FOR GOOGLE SHEET
+===================================================== */
+
+function getProductsString() {
+
+  const products =
+    getProductsData();
+
+
+  return products
+    .map(
+      function(product) {
+
+        return (
+          product.name +
+          " — " +
+          formatMoney(
+            product.amount
+          ) +
+          " UZS"
+        );
+
+      }
+    )
+    .join("\n");
+
+}
+
+
+/* =====================================================
+   WEEK
+===================================================== */
+
+function selectWeek(
+  button
+) {
+
+  document
+    .querySelectorAll(
+      ".week-button"
+    )
+    .forEach(
+      function(item) {
+
+        item.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  selectedWeek =
+    button.dataset.week;
+
+}
+
+
+/* =====================================================
+   PHOTOS PREVIEW
+===================================================== */
+
+function previewPhotos(
+  event
+) {
 
   const files =
     Array.from(
@@ -897,14 +2260,17 @@ function previewPhotos(event) {
     );
 
 
-  if (files.length > 3) {
+  if (
+    files.length > 3
+  ) {
 
     showStatus(
       "❌ Maksimal 3 ta rasm tanlash mumkin.",
       "error"
     );
 
-    event.target.value = "";
+    event.target.value =
+      "";
 
     return;
 
@@ -917,7 +2283,8 @@ function previewPhotos(event) {
     );
 
 
-  preview.innerHTML = "";
+  preview.innerHTML =
+    "";
 
 
   files.forEach(
@@ -930,18 +2297,39 @@ function previewPhotos(event) {
       reader.onload =
         function(e) {
 
+          const item =
+            document.createElement(
+              "div"
+            );
+
+          item.className =
+            "photo-item";
+
+
           const img =
-            document.createElement("img");
+            document.createElement(
+              "img"
+            );
 
           img.src =
             e.target.result;
 
-          preview.appendChild(img);
+
+          item.appendChild(
+            img
+          );
+
+
+          preview.appendChild(
+            item
+          );
 
         };
 
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(
+        file
+      );
 
     }
   );
@@ -949,9 +2337,27 @@ function previewPhotos(event) {
 }
 
 
-/************************************************
- * MA'LUMOTNI YIG‘ISH
- ************************************************/
+/* =====================================================
+   MONEY FORMAT
+===================================================== */
+
+function formatMoney(
+  number
+) {
+
+  return Number(
+    number || 0
+  )
+    .toLocaleString(
+      "uz-UZ"
+    );
+
+}
+
+
+/* =====================================================
+   COLLECT DATA
+===================================================== */
 
 function collectData() {
 
@@ -967,50 +2373,62 @@ function collectData() {
 
     sana:
       document
-        .getElementById("sana")
+        .getElementById(
+          "sana"
+        )
         .value,
+
 
     oshxonaXodimlar:
       getSelectedEmployees(
         "oshxona"
       ),
 
+
     oshxonaItems:
-      document
-        .getElementById("oshxonaItems")
-        .value
-        .trim(),
+      getProductsString(),
+
 
     oshxonaHafta:
-      document
-        .getElementById("oshxonaHafta")
-        .value,
+      selectedWeek,
+
 
     tashqariXodimlar:
       getSelectedEmployees(
         "tashqari"
       ),
 
+
     tashqariSumma:
       document
-        .getElementById("tashqariSumma")
+        .getElementById(
+          "tashqariSumma"
+        )
         .value,
+
 
     kechkiXodimlar:
       getSelectedEmployees(
         "kechki"
       ),
 
+
     kechkiSumma:
       document
-        .getElementById("kechkiSumma")
+        .getElementById(
+          "kechkiSumma"
+        )
         .value,
+
 
     izoh:
       document
-        .getElementById("izoh")
+        .getElementById(
+          "izoh"
+        )
         .value
         .trim(),
+
 
     telegramUser:
       telegramUser
@@ -1020,9 +2438,218 @@ function collectData() {
 }
 
 
-/************************************************
- * SAQLASH
- ************************************************/
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function validateForm() {
+
+  const sana =
+    document
+      .getElementById(
+        "sana"
+      )
+      .value;
+
+
+  if (!sana) {
+
+    return "❌ Sanani tanlang.";
+
+  }
+
+
+  const oshxona =
+    getSelectedEmployees(
+      "oshxona"
+    );
+
+
+  const tashqari =
+    getSelectedEmployees(
+      "tashqari"
+    );
+
+
+  const kechki =
+    getSelectedEmployees(
+      "kechki"
+    );
+
+
+  const oshxonaTotal =
+    getKitchenTotal();
+
+
+  const tashqariSumma =
+    Number(
+      document
+        .getElementById(
+          "tashqariSumma"
+        )
+        .value || 0
+    );
+
+
+  const kechkiSumma =
+    Number(
+      document
+        .getElementById(
+          "kechkiSumma"
+        )
+        .value || 0
+    );
+
+
+  /* =====================
+     TASHQARI
+  ====================== */
+
+  if (
+    tashqariSumma > 0 &&
+    tashqari.length === 0
+  ) {
+
+    return (
+      "❌ Tashqaridagi tushlik summasi kiritildi. " +
+      "Xodimlarni tanlang."
+    );
+
+  }
+
+
+  if (
+    tashqari.length > 0 &&
+    tashqariSumma <= 0
+  ) {
+
+    return (
+      "❌ Tashqarida ovqatlangan xodimlar tanlandi. " +
+      "Xarajat summasini kiriting."
+    );
+
+  }
+
+
+  /* =====================
+     KECHKI
+  ====================== */
+
+  if (
+    kechkiSumma > 0 &&
+    kechki.length === 0
+  ) {
+
+    return (
+      "❌ Kechki ovqat summasi kiritildi. " +
+      "Xodimlarni tanlang."
+    );
+
+  }
+
+
+  if (
+    kechki.length > 0 &&
+    kechkiSumma <= 0
+  ) {
+
+    return (
+      "❌ Kechki ovqatlangan xodimlar tanlandi. " +
+      "Xarajat summasini kiriting."
+    );
+
+  }
+
+
+  /* =====================
+     OSHXONA
+  ====================== */
+
+  const products =
+    getProductsData();
+
+
+  if (
+    products.length > 0 &&
+    oshxona.length === 0
+  ) {
+
+    return (
+      "❌ Oshxona mahsulotlari kiritildi. " +
+      "Oshxonada ovqatlangan xodimlarni tanlang."
+    );
+
+  }
+
+
+  if (
+    oshxona.length > 0 &&
+    oshxonaTotal <= 0
+  ) {
+
+    return (
+      "❌ Oshxona xodimlari tanlandi. " +
+      "Mahsulot summasini kiriting."
+    );
+
+  }
+
+
+  if (
+    products.length > 0 &&
+    !selectedWeek
+  ) {
+
+    return (
+      "❌ Oshxona xarajati uchun haftani tanlang."
+    );
+
+  }
+
+
+  /* =====================
+     DUPLICATES
+  ====================== */
+
+  const allSelected = [
+    ...oshxona,
+    ...tashqari,
+    ...kechki
+  ];
+
+
+  const ids =
+    allSelected.map(
+      function(x) {
+        return x.id;
+      }
+    );
+
+
+  const uniqueIds =
+    new Set(ids);
+
+
+  if (
+    uniqueIds.size !==
+    ids.length
+  ) {
+
+    return (
+      "❌ Bitta xodim bir nechta ovqat turida tanlangan."
+    );
+
+  }
+
+
+  return null;
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
 
 async function saveData() {
 
@@ -1032,20 +2659,16 @@ async function saveData() {
     );
 
 
-  /**********************************************
-   * VALIDATSIYA
-   **********************************************/
-
-  const sana =
-    document
-      .getElementById("sana")
-      .value;
+  const validationError =
+    validateForm();
 
 
-  if (!sana) {
+  if (
+    validationError
+  ) {
 
     showStatus(
-      "❌ Sanani tanlang.",
+      validationError,
       "error"
     );
 
@@ -1058,40 +2681,12 @@ async function saveData() {
     collectData();
 
 
-  const photos =
-    document
-      .getElementById("photos")
-      .files;
-
-
-  if (
-    photos &&
-    photos.length > 3
-  ) {
-
-    showStatus(
-      "❌ Maksimal 3 ta rasm.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /**********************************************
-   * BUTTON
-   **********************************************/
-
-  button.disabled = true;
+  button.disabled =
+    true;
 
   button.innerHTML =
     "⏳ SAQLANMOQDA...";
 
-
-  /**********************************************
-   * SERVERGA YUBORISH
-   **********************************************/
 
   try {
 
@@ -1101,9 +2696,11 @@ async function saveData() {
 
       {
 
-        method: "POST",
+        method:
+          "POST",
 
-        mode: "no-cors",
+        mode:
+          "no-cors",
 
         headers: {
 
@@ -1122,11 +2719,8 @@ async function saveData() {
     );
 
 
-    /******************************************
-     * MUVAFFAQIYAT
-     ******************************************/
-
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.innerHTML =
       "💾 SAQLASH";
@@ -1149,7 +2743,8 @@ async function saveData() {
     );
 
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.innerHTML =
       "💾 SAQLASH";
@@ -1166,45 +2761,50 @@ async function saveData() {
 }
 
 
-/************************************************
- * FORMNI TOZALASH
- ************************************************/
+/* =====================================================
+   CLEAR FORM
+===================================================== */
 
 function clearForm() {
 
   document
-    .getElementById("oshxonaItems")
-    .value = "";
+    .getElementById(
+      "tashqariSumma"
+    )
+    .value =
+      "";
 
 
   document
-    .getElementById("oshxonaHafta")
-    .value = "";
+    .getElementById(
+      "kechkiSumma"
+    )
+    .value =
+      "";
 
 
   document
-    .getElementById("tashqariSumma")
-    .value = "";
+    .getElementById(
+      "izoh"
+    )
+    .value =
+      "";
 
 
   document
-    .getElementById("kechkiSumma")
-    .value = "";
+    .getElementById(
+      "photos"
+    )
+    .value =
+      "";
 
 
   document
-    .getElementById("izoh")
-    .value = "";
-
-
-  document
-    .getElementById("photos")
-    .value = "";
-
-
-  document
-    .getElementById("photoPreview")
-    .innerHTML = "";
+    .getElementById(
+      "photoPreview"
+    )
+    .innerHTML =
+      "";
 
 
   document
@@ -1214,17 +2814,62 @@ function clearForm() {
     .forEach(
       function(checkbox) {
 
-        checkbox.checked = false;
+        checkbox.checked =
+          false;
+
+        updateEmployeeVisual(
+          checkbox
+        );
 
       }
     );
 
+
+  updateAllCounts();
+
+
+  selectedWeek =
+    "";
+
+
+  document
+    .querySelectorAll(
+      ".week-button"
+    )
+    .forEach(
+      function(button) {
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "productList"
+    )
+    .innerHTML =
+      "";
+
+
+  productCounter =
+    0;
+
+
+  addProduct();
+
+
+  calculateKitchenTotal();
+
 }
 
 
-/************************************************
- * STATUS
- ************************************************/
+/* =====================================================
+   STATUS
+===================================================== */
 
 function showStatus(
   message,
@@ -1238,7 +2883,8 @@ function showStatus(
 
 
   status.className =
-    "status " + type;
+    "status " +
+    type;
 
 
   status.textContent =
@@ -1246,15 +2892,18 @@ function showStatus(
 
 
   status.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
+
+    behavior:
+      "smooth",
+
+    block:
+      "center"
+
   });
 
 }
 
-
 </script>
-
 
 </body>
 
