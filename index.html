@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -14,77 +12,45 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-
 <style>
-
-/* =====================================================
-   TELEGRAM THEME
-===================================================== */
-
 :root {
+  --bg: var(--tg-theme-bg-color, #17212b);
+  --card: var(--tg-theme-secondary-bg-color, #202b36);
+  --text: var(--tg-theme-text-color, #ffffff);
+  --hint: var(--tg-theme-hint-color, #8b9aaa);
+  --button: var(--tg-theme-button-color, #3390ec);
+  --button-text: var(--tg-theme-button-text-color, #ffffff);
 
-  --tg-bg:
-    var(--tg-theme-bg-color, #f2f4f7);
+  --border: rgba(255,255,255,0.10);
+  --input: rgba(255,255,255,0.045);
 
-  --tg-secondary:
-    var(--tg-theme-secondary-bg-color, #ffffff);
-
-  --tg-text:
-    var(--tg-theme-text-color, #111111);
-
-  --tg-hint:
-    var(--tg-theme-hint-color, #777777);
-
-  --tg-button:
-    var(--tg-theme-button-color, #2481cc);
-
-  --tg-button-text:
-    var(--tg-theme-button-text-color, #ffffff);
-
-  --border:
-    rgba(127,127,127,0.18);
-
-  --danger:
-    #ef4444;
-
-  --success:
-    #16a34a;
-
+  --success: #27ae60;
+  --danger: #ef4444;
+  --warning: #f59e0b;
 }
-
-
-/* =====================================================
-   RESET
-===================================================== */
 
 * {
-
   box-sizing: border-box;
-
-  -webkit-tap-highlight-color:
-    transparent;
-
+  -webkit-tap-highlight-color: transparent;
 }
 
-
-html {
-
+html,
+body {
+  margin: 0;
+  padding: 0;
   min-height: 100%;
-
 }
-
 
 body {
-
-  margin: 0;
-
-  min-height: 100vh;
-
   background:
-    var(--tg-bg);
+    radial-gradient(
+      circle at top right,
+      rgba(51,144,236,0.10),
+      transparent 35%
+    ),
+    var(--bg);
 
-  color:
-    var(--tg-text);
+  color: var(--text);
 
   font-family:
     -apple-system,
@@ -93,1010 +59,821 @@ body {
     Roboto,
     Arial,
     sans-serif;
-
 }
-
 
 button,
 input,
 textarea,
 select {
-
-  font-family:
-    inherit;
-
+  font-family: inherit;
 }
 
-
-/* =====================================================
-   CONTAINER
-===================================================== */
+button {
+  -webkit-appearance: none;
+  appearance: none;
+}
 
 .container {
-
   width: 100%;
-
   max-width: 680px;
-
   margin: 0 auto;
 
-  padding:
-    12px;
-
-  padding-bottom:
-    35px;
-
+  padding: 10px;
+  padding-bottom: 30px;
 }
 
-
-/* =====================================================
+/* =========================
    HEADER
-===================================================== */
+========================= */
 
 .header {
-
   position: relative;
-
   overflow: hidden;
 
-  padding:
-    22px 18px;
+  padding: 22px 18px;
 
-  margin-bottom:
-    12px;
+  margin-bottom: 10px;
 
-  border-radius:
-    22px;
+  border-radius: 22px;
 
-  background:
-    var(--tg-secondary);
+  background: var(--card);
 
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
 
   box-shadow:
-    0 6px 22px rgba(0,0,0,0.06);
-
+    0 6px 24px rgba(0,0,0,0.08);
 }
 
-
-.header::before {
-
+.header::after {
   content: "";
 
   position: absolute;
 
   width: 150px;
-
   height: 150px;
 
-  right: -60px;
-
+  right: -65px;
   top: -70px;
 
   border-radius: 50%;
 
   background:
-    rgba(36,129,204,0.08);
-
+    rgba(51,144,236,0.10);
 }
 
-
 .header-title {
-
   position: relative;
+
+  z-index: 1;
 
   display: flex;
 
+  justify-content: center;
   align-items: center;
 
-  justify-content: center;
+  gap: 8px;
 
-  gap: 9px;
-
-  font-size: 24px;
+  font-size: 23px;
 
   font-weight: 800;
-
 }
 
-
 .header-subtitle {
-
   position: relative;
+
+  z-index: 1;
 
   margin-top: 6px;
 
   text-align: center;
 
-  color:
-    var(--tg-hint);
+  color: var(--hint);
 
-  font-size: 14px;
-
+  font-size: 13px;
 }
 
-
-/* =====================================================
+/* =========================
    STATUS
-===================================================== */
+========================= */
 
 .status {
-
   display: none;
 
-  padding:
-    13px 15px;
+  padding: 13px 15px;
 
-  margin-bottom:
-    12px;
+  margin-bottom: 10px;
 
-  border-radius:
-    15px;
+  border-radius: 15px;
 
   font-size: 14px;
 
   font-weight: 700;
 
   text-align: center;
-
 }
-
 
 .status.success {
-
   display: block;
 
-  color:
-    var(--success);
+  color: #22c55e;
 
   background:
-    rgba(22,163,74,0.10);
+    rgba(34,197,94,0.10);
 
   border:
-    1px solid rgba(22,163,74,0.15);
-
+    1px solid rgba(34,197,94,0.18);
 }
 
-
 .status.error {
-
   display: block;
 
-  color:
-    var(--danger);
+  color: #ef4444;
 
   background:
     rgba(239,68,68,0.10);
 
   border:
-    1px solid rgba(239,68,68,0.15);
-
+    1px solid rgba(239,68,68,0.18);
 }
 
-
-/* =====================================================
+/* =========================
    CARD
-===================================================== */
+========================= */
 
 .card {
+  padding: 16px;
 
-  padding:
-    17px;
+  margin-bottom: 10px;
 
-  margin-bottom:
-    12px;
+  border-radius: 20px;
 
-  border-radius:
-    20px;
+  background: var(--card);
 
-  background:
-    var(--tg-secondary);
-
-  border:
-    1px solid var(--border);
+  border: 1px solid var(--border);
 
   box-shadow:
-    0 5px 20px rgba(0,0,0,0.045);
-
+    0 5px 20px rgba(0,0,0,0.055);
 }
 
-
 .card-title {
-
   display: flex;
 
   align-items: center;
 
   gap: 8px;
 
-  margin-bottom:
-    14px;
+  margin-bottom: 6px;
 
   font-size: 17px;
 
   font-weight: 800;
-
 }
-
 
 .card-description {
-
-  margin-top: -7px;
-
   margin-bottom: 13px;
 
-  color:
-    var(--tg-hint);
+  color: var(--hint);
 
   font-size: 12px;
-
 }
-
-
-/* =====================================================
-   FIELD
-===================================================== */
 
 .field {
-
-  margin-bottom:
-    14px;
-
+  margin-bottom: 13px;
 }
-
 
 .field:last-child {
-
   margin-bottom: 0;
-
 }
 
-
-label.field-label {
-
+.field-label {
   display: block;
 
-  margin-bottom:
-    7px;
+  margin-bottom: 7px;
 
   font-size: 13px;
 
   font-weight: 700;
-
 }
 
+/* =========================
+   INPUTS
+========================= */
 
 input[type="date"],
 input[type="number"],
+input[type="text"],
 textarea,
 select {
-
   width: 100%;
 
   border:
     1px solid var(--border);
 
-  border-radius:
-    14px;
+  border-radius: 14px;
 
-  padding:
-    13px;
+  padding: 13px;
 
   outline: none;
 
   background:
-    var(--tg-bg);
+    var(--input);
 
   color:
-    var(--tg-text);
+    var(--text);
 
   font-size: 16px;
 
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: var(--hint);
+
+  opacity: 0.9;
+}
 
 input:focus,
 textarea:focus,
 select:focus {
-
   border-color:
-    var(--tg-button);
+    var(--button);
 
+  background:
+    rgba(51,144,236,0.07);
 }
-
 
 textarea {
+  min-height: 90px;
 
-  min-height:
-    90px;
-
-  resize:
-    vertical;
-
+  resize: vertical;
 }
 
-
-/* =====================================================
-   WEEK BUTTONS
-===================================================== */
-
-.week-grid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(5, 1fr);
-
-  gap: 7px;
-
-}
-
-
-.week-button {
-
-  position: relative;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    13px;
-
-  padding:
-    10px 4px;
-
-  background:
-    var(--tg-bg);
-
-  color:
-    var(--tg-text);
-
-  cursor: pointer;
-
-  transition:
-    0.18s ease;
-
-}
-
-
-.week-number {
-
-  display: block;
-
-  font-size: 12px;
-
-  font-weight: 800;
-
-}
-
-
-.week-days {
-
-  display: block;
-
-  margin-top: 3px;
-
-  color:
-    var(--tg-hint);
-
-  font-size: 10px;
-
-}
-
-
-.week-button.selected {
-
-  border-color:
-    var(--tg-button);
-
-  background:
-    var(--tg-button);
-
-  color:
-    var(--tg-button-text);
-
-  transform:
-    translateY(-1px);
-
-}
-
-
-.week-button.selected .week-days {
-
-  color:
-    rgba(255,255,255,0.85);
-
-}
-
-
-/* =====================================================
-   EMPLOYEE SECTION
-===================================================== */
+/* =========================
+   EMPLOYEES
+========================= */
 
 .employee-section {
+  overflow: hidden;
 
   border:
     1px solid var(--border);
 
-  border-radius:
-    15px;
+  border-radius: 15px;
 
-  overflow:
-    hidden;
-
+  background:
+    var(--input);
 }
 
-
 .employee-header {
-
   display: flex;
 
   align-items: center;
 
   justify-content: space-between;
 
-  padding:
-    12px 13px;
+  min-height: 48px;
 
-  background:
-    var(--tg-bg);
+  padding: 11px 13px;
 
   cursor: pointer;
-
 }
 
-
 .employee-header-left {
-
   display: flex;
 
   align-items: center;
-
-  gap: 8px;
-
-  font-size: 14px;
-
-  font-weight: 800;
-
-}
-
-
-.employee-count {
-
-  color:
-    var(--tg-button);
-
-  font-weight: 800;
-
-}
-
-
-.employee-arrow {
-
-  font-size: 14px;
-
-  transition:
-    transform 0.2s ease;
-
-}
-
-
-.employee-section.open
-.employee-arrow {
-
-  transform:
-    rotate(90deg);
-
-}
-
-
-.employee-list {
-
-  display: none;
-
-  padding:
-    8px;
 
   gap: 7px;
 
+  min-width: 0;
+
+  font-size: 13px;
+
+  font-weight: 800;
 }
 
+.employee-count {
+  color:
+    var(--button);
+
+  white-space: nowrap;
+}
+
+.employee-arrow {
+  flex-shrink: 0;
+
+  font-size: 13px;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.employee-section.open
+.employee-arrow {
+  transform:
+    rotate(90deg);
+}
+
+.employee-list {
+  display: none;
+
+  padding: 7px;
+
+  gap: 7px;
+}
 
 .employee-section.open
 .employee-list {
-
   display: flex;
 
   flex-direction: column;
-
 }
 
-
 .employee {
-
   display: flex;
 
   align-items: center;
 
-  gap: 11px;
+  gap: 10px;
 
-  padding:
-    11px;
+  min-height: 55px;
+
+  padding: 10px;
 
   border:
     1px solid var(--border);
 
-  border-radius:
-    13px;
+  border-radius: 13px;
 
   background:
-    var(--tg-secondary);
+    var(--card);
 
   cursor: pointer;
 
+  transition:
+    0.15s ease;
 }
 
+.employee:active {
+  transform: scale(0.99);
+}
 
 .employee input {
+  width: 20px;
+  height: 20px;
 
-  width:
-    20px;
-
-  height:
-    20px;
+  margin: 0;
 
   flex-shrink: 0;
 
   accent-color:
-    var(--tg-button);
-
+    var(--button);
 }
 
+.employee input:disabled {
+  opacity: 0.30;
+}
 
 .employee-info {
-
   flex: 1;
 
+  min-width: 0;
 }
 
-
 .employee-name {
-
   font-size: 14px;
 
   font-weight: 700;
-
 }
-
 
 .employee-position {
+  margin-top: 2px;
 
-  margin-top:
-    2px;
-
-  color:
-    var(--tg-hint);
+  color: var(--hint);
 
   font-size: 12px;
-
 }
 
-
-/* =====================================================
+/* =========================
    AMOUNT
-===================================================== */
+========================= */
 
 .amount-input {
+  font-size: 17px !important;
 
-  font-size:
-    17px !important;
-
-  font-weight:
-    700;
-
+  font-weight: 700;
 }
 
-
-/* =====================================================
-   PRODUCT
-===================================================== */
+/* =========================
+   PRODUCTS
+========================= */
 
 .product-list {
+  display: flex;
 
-  display:
-    flex;
+  flex-direction: column;
 
-  flex-direction:
-    column;
-
-  gap:
-    8px;
-
+  gap: 8px;
 }
-
 
 .product-row {
-
-  display:
-    grid;
+  display: grid;
 
   grid-template-columns:
-    1fr 130px 42px;
+    minmax(0, 1fr)
+    115px
+    40px;
 
-  gap:
-    7px;
+  gap: 7px;
 
+  align-items: center;
 }
-
 
 .product-row input {
-
   min-width: 0;
 
-}
+  width: 100%;
 
+  background:
+    var(--input);
 
-.remove-product {
+  color:
+    var(--text);
 
   border:
-    none;
+    1px solid var(--border);
 
-  border-radius:
-    12px;
+  border-radius: 13px;
+
+  padding: 12px;
+
+  font-size: 14px;
+}
+
+.product-row input::placeholder {
+  color: var(--hint);
+}
+
+.product-row input:focus {
+  border-color:
+    var(--button);
+}
+
+.remove-product {
+  width: 40px;
+  height: 40px;
+
+  border: none;
+
+  border-radius: 12px;
 
   background:
     rgba(239,68,68,0.10);
 
   color:
-    var(--danger);
+    #ef4444;
 
-  font-size:
-    18px;
+  font-size: 20px;
 
-  cursor:
-    pointer;
-
+  cursor: pointer;
 }
 
-
 .add-product {
+  width: 100%;
 
-  width:
-    100%;
+  margin-top: 9px;
 
-  margin-top:
-    9px;
-
-  padding:
-    11px;
+  padding: 11px;
 
   border:
-    1px dashed var(--tg-button);
+    1px dashed
+    var(--button);
 
-  border-radius:
-    13px;
+  border-radius: 13px;
 
   background:
     transparent;
 
   color:
-    var(--tg-button);
+    var(--button);
 
-  font-weight:
-    800;
+  font-size: 14px;
 
-  cursor:
-    pointer;
+  font-weight: 800;
 
+  cursor: pointer;
 }
-
 
 .total-box {
+  display: flex;
 
-  display:
-    flex;
+  align-items: center;
 
-  justify-content:
-    space-between;
+  justify-content: space-between;
 
-  align-items:
-    center;
+  gap: 10px;
 
-  margin-top:
-    10px;
+  margin-top: 10px;
 
-  padding:
-    12px;
+  padding: 12px;
 
-  border-radius:
-    13px;
+  border-radius: 13px;
 
   background:
-    var(--tg-bg);
+    var(--input);
 
-  font-size:
-    13px;
+  font-size: 13px;
 
-  font-weight:
-    700;
-
+  font-weight: 700;
 }
-
 
 .total-value {
+  font-size: 16px;
 
-  font-size:
-    16px;
-
+  white-space: nowrap;
 }
 
+/* =========================
+   WEEK
+========================= */
 
-/* =====================================================
-   PHOTO
-===================================================== */
-
-.photo-upload {
-
-  position:
-    relative;
-
-  overflow:
-    hidden;
-
-  padding:
-    22px 15px;
-
-  border:
-    2px dashed rgba(36,129,204,0.42);
-
-  border-radius:
-    18px;
-
-  background:
-    rgba(36,129,204,0.06);
-
-  text-align:
-    center;
-
-}
-
-
-.photo-upload input {
-
-  display:
-    none;
-
-}
-
-
-.photo-camera {
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  width:
-    62px;
-
-  height:
-    62px;
-
-  margin:
-    0 auto 10px;
-
-  border-radius:
-    18px;
-
-  background:
-    rgba(36,129,204,0.14);
-
-  font-size:
-    31px;
-
-}
-
-
-.photo-main-text {
-
-  font-size:
-    16px;
-
-  font-weight:
-    800;
-
-}
-
-
-.photo-sub-text {
-
-  margin-top:
-    5px;
-
-  color:
-    var(--tg-hint);
-
-  font-size:
-    12px;
-
-}
-
-
-.photo-preview {
-
-  display:
-    grid;
+.week-grid {
+  display: grid;
 
   grid-template-columns:
-    repeat(2, 1fr);
+    repeat(5, minmax(0, 1fr));
 
-  gap:
-    9px;
-
-  margin-top:
-    10px;
-
+  gap: 6px;
 }
 
+.week-button {
+  min-width: 0;
+
+  padding: 10px 3px;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 13px;
+
+  background:
+    var(--input);
+
+  color:
+    var(--text);
+
+  cursor: pointer;
+
+  transition:
+    0.18s ease;
+}
+
+.week-button:active {
+  transform:
+    scale(0.97);
+}
+
+.week-button.selected {
+  border-color:
+    var(--button);
+
+  background:
+    var(--button);
+
+  color:
+    var(--button-text);
+
+  box-shadow:
+    0 5px 15px rgba(51,144,236,0.18);
+}
+
+.week-number {
+  display: block;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.week-days {
+  display: block;
+
+  margin-top: 3px;
+
+  color:
+    var(--hint);
+
+  font-size: 10px;
+}
+
+.week-button.selected
+.week-days {
+  color:
+    rgba(255,255,255,0.85);
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-box {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  width: 100%;
+
+  padding: 13px;
+
+  border:
+    1px dashed
+    rgba(51,144,236,0.45);
+
+  border-radius: 16px;
+
+  background:
+    rgba(51,144,236,0.055);
+}
+
+.photo-input {
+  display: none !important;
+}
+
+.photo-button {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 15px;
+
+  background:
+    rgba(51,144,236,0.14);
+
+  color:
+    var(--text);
+
+  font-size: 26px;
+
+  cursor: pointer;
+}
+
+.photo-info {
+  flex: 1;
+
+  min-width: 0;
+
+  cursor: pointer;
+}
+
+.photo-main-text {
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+.photo-sub-text {
+  margin-top: 4px;
+
+  color: var(--hint);
+
+  font-size: 12px;
+}
+
+.photo-preview {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
 
 .photo-item {
+  position: relative;
 
-  position:
-    relative;
+  overflow: hidden;
 
-  overflow:
-    hidden;
+  width: 100%;
 
-  aspect-ratio:
-    1 / 1;
+  aspect-ratio: 1 / 1;
 
-  border-radius:
-    14px;
+  border-radius: 14px;
 
   border:
     1px solid var(--border);
 
   background:
-    var(--tg-bg);
-
+    var(--input);
 }
-
 
 .photo-item img {
+  display: block;
 
-  width:
-    100%;
+  width: 100%;
+  height: 100%;
 
-  height:
-    100%;
-
-  object-fit:
-    cover;
-
+  object-fit: cover;
 }
 
-
 .photo-remove {
+  position: absolute;
 
-  position:
-    absolute;
+  top: 7px;
+  right: 7px;
 
-  top:
-    7px;
+  display: flex;
 
-  right:
-    7px;
+  align-items: center;
+  justify-content: center;
 
-  width:
-    30px;
+  width: 30px;
+  height: 30px;
 
-  height:
-    30px;
+  padding: 0;
 
-  border:
-    none;
+  border: none;
 
-  border-radius:
-    50%;
+  border-radius: 50%;
 
   background:
     rgba(0,0,0,0.65);
 
-  color:
-    white;
+  color: white;
 
-  font-size:
-    16px;
+  font-size: 17px;
 
-  cursor:
-    pointer;
-
+  cursor: pointer;
 }
 
-
-/* =====================================================
-   SAVE BUTTON
-===================================================== */
+/* =========================
+   SAVE
+========================= */
 
 .save-button {
+  width: 100%;
 
-  width:
-    100%;
+  min-height: 54px;
 
-  padding:
-    16px;
+  padding: 15px;
 
-  border:
-    none;
+  border: none;
 
-  border-radius:
-    17px;
+  border-radius: 17px;
 
   background:
-    var(--tg-button);
+    var(--button);
 
   color:
-    var(--tg-button-text);
+    var(--button-text);
 
-  font-size:
-    17px;
+  font-size: 17px;
 
-  font-weight:
-    800;
+  font-weight: 800;
 
-  cursor:
-    pointer;
+  cursor: pointer;
 
   box-shadow:
-    0 7px 20px rgba(36,129,204,0.22);
-
+    0 7px 20px rgba(51,144,236,0.20);
 }
 
+.save-button:active {
+  transform:
+    scale(0.99);
+}
 
 .save-button:disabled {
+  opacity: 0.55;
 
-  opacity:
-    0.55;
-
-  cursor:
-    not-allowed;
-
+  cursor: not-allowed;
 }
 
-
-/* =====================================================
-   SMALL
-===================================================== */
-
-.small {
-
-  margin-top:
-    6px;
-
-  color:
-    var(--tg-hint);
-
-  font-size:
-    11px;
-
-}
-
+/* =========================
+   ERROR
+========================= */
 
 .error-input {
-
   border-color:
     var(--danger) !important;
 
   animation:
     shake 0.25s ease;
-
 }
-
 
 @keyframes shake {
 
@@ -1111,75 +888,61 @@ textarea {
   75% {
     transform: translateX(4px);
   }
-
 }
 
-
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
 @media (max-width: 430px) {
 
   .container {
-
-    padding:
-      9px;
-
+    padding: 8px;
   }
-
 
   .card {
-
-    padding:
-      14px;
-
+    padding: 14px;
   }
 
-
-  .week-grid {
-
-    gap:
-      5px;
-
+  .header {
+    padding: 19px 14px;
   }
 
-
-  .week-number {
-
-    font-size:
-      11px;
-
+  .header-title {
+    font-size: 21px;
   }
-
-
-  .week-days {
-
-    font-size:
-      9px;
-
-  }
-
 
   .product-row {
-
     grid-template-columns:
-      1fr 105px 38px;
-
+      minmax(0, 1fr)
+      100px
+      38px;
   }
 
+  .product-row input {
+    padding: 11px 9px;
+
+    font-size: 13px;
+  }
+
+  .week-grid {
+    gap: 4px;
+  }
+
+  .week-number {
+    font-size: 10px;
+  }
+
+  .week-days {
+    font-size: 9px;
+  }
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
-
 
   <!-- HEADER -->
 
@@ -1195,7 +958,6 @@ textarea {
 
   </div>
 
-
   <!-- STATUS -->
 
   <div
@@ -1204,9 +966,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       SANA
-  ================================================== -->
+  <!-- SANA -->
 
   <div class="card">
 
@@ -1226,9 +986,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       OSHXONA
-  ================================================== -->
+  <!-- OSHXONA -->
 
   <div class="card">
 
@@ -1237,7 +995,7 @@ textarea {
     </div>
 
     <div class="card-description">
-      Oshxonada ovqatlangan xodimlar va mahsulotlarni kiriting.
+      Oshxonada ovqatlangan xodimlar va xarajatlarni kiriting.
     </div>
 
 
@@ -1278,7 +1036,6 @@ textarea {
 
         </div>
 
-
         <div
           id="oshxonaEmployees"
           class="employee-list"
@@ -1289,7 +1046,7 @@ textarea {
     </div>
 
 
-    <!-- MAHSULOTLAR -->
+    <!-- SPISKA -->
 
     <div class="field">
 
@@ -1297,12 +1054,10 @@ textarea {
         🛒 Oshxona spiskasi
       </label>
 
-
       <div
         id="productList"
         class="product-list"
       ></div>
-
 
       <button
         type="button"
@@ -1311,7 +1066,6 @@ textarea {
       >
         ＋ Mahsulot qo‘shish
       </button>
-
 
       <div class="total-box">
 
@@ -1336,9 +1090,8 @@ textarea {
     <div class="field">
 
       <label class="field-label">
-        📆 Kiritilgan oshxona xarajati qaysi hafta uchun?
+        📆 Xarajat qaysi hafta uchun?
       </label>
-
 
       <div class="week-grid">
 
@@ -1348,7 +1101,6 @@ textarea {
           data-week="1-hafta (1-7)"
           onclick="selectWeek(this)"
         >
-
           <span class="week-number">
             1-hafta
           </span>
@@ -1356,7 +1108,6 @@ textarea {
           <span class="week-days">
             (1–7)
           </span>
-
         </button>
 
 
@@ -1366,7 +1117,6 @@ textarea {
           data-week="2-hafta (8-14)"
           onclick="selectWeek(this)"
         >
-
           <span class="week-number">
             2-hafta
           </span>
@@ -1374,7 +1124,6 @@ textarea {
           <span class="week-days">
             (8–14)
           </span>
-
         </button>
 
 
@@ -1384,7 +1133,6 @@ textarea {
           data-week="3-hafta (15-21)"
           onclick="selectWeek(this)"
         >
-
           <span class="week-number">
             3-hafta
           </span>
@@ -1392,7 +1140,6 @@ textarea {
           <span class="week-days">
             (15–21)
           </span>
-
         </button>
 
 
@@ -1402,7 +1149,6 @@ textarea {
           data-week="4-hafta (22-28)"
           onclick="selectWeek(this)"
         >
-
           <span class="week-number">
             4-hafta
           </span>
@@ -1410,7 +1156,6 @@ textarea {
           <span class="week-days">
             (22–28)
           </span>
-
         </button>
 
 
@@ -1420,7 +1165,6 @@ textarea {
           data-week="5-hafta (29-31)"
           onclick="selectWeek(this)"
         >
-
           <span class="week-number">
             5-hafta
           </span>
@@ -1428,11 +1172,9 @@ textarea {
           <span class="week-days">
             (29–31)
           </span>
-
         </button>
 
       </div>
-
 
       <input
         type="hidden"
@@ -1444,9 +1186,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       TASHQARIDAGI TUSHLIK
-  ================================================== -->
+  <!-- TASHQARIDAGI TUSHLIK -->
 
   <div class="card">
 
@@ -1458,8 +1198,6 @@ textarea {
       Oshxonada ovqatlanmagan xodimlar uchun.
     </div>
 
-
-    <!-- SUMMA -->
 
     <div class="field">
 
@@ -1477,8 +1215,6 @@ textarea {
 
     </div>
 
-
-    <!-- XODIM -->
 
     <div class="field">
 
@@ -1515,7 +1251,6 @@ textarea {
 
         </div>
 
-
         <div
           id="tashqariEmployees"
           class="employee-list"
@@ -1528,9 +1263,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       KECHKI OVQAT
-  ================================================== -->
+  <!-- KECHKI -->
 
   <div class="card">
 
@@ -1595,7 +1328,6 @@ textarea {
 
         </div>
 
-
         <div
           id="kechkiEmployees"
           class="employee-list"
@@ -1608,9 +1340,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       RASMLAR
-  ================================================== -->
+  <!-- RASM -->
 
   <div class="card">
 
@@ -1619,38 +1349,43 @@ textarea {
     </div>
 
     <div class="card-description">
-      Xarajatni tasdiqlovchi rasm. Maksimum 2 ta.
+      Xarajatni tasdiqlovchi 1 yoki 2 ta rasm.
     </div>
 
 
-    <label
-      class="photo-upload"
-      for="photos"
-    >
+    <div class="photo-box">
 
       <input
+        class="photo-input"
         type="file"
         id="photos"
         accept="image/*"
         multiple
       >
 
-
-      <div class="photo-camera">
+      <label
+        class="photo-button"
+        for="photos"
+      >
         📷
-      </div>
+      </label>
 
+      <label
+        class="photo-info"
+        for="photos"
+      >
 
-      <div class="photo-main-text">
-        Rasm tanlash
-      </div>
+        <div class="photo-main-text">
+          Rasm tanlash
+        </div>
 
+        <div class="photo-sub-text">
+          Maksimum 2 ta rasm
+        </div>
 
-      <div class="photo-sub-text">
-        1–2 ta rasm tanlashingiz mumkin
-      </div>
+      </label>
 
-    </label>
+    </div>
 
 
     <div
@@ -1661,9 +1396,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       IZOH
-  ================================================== -->
+  <!-- IZOH -->
 
   <div class="card">
 
@@ -1679,9 +1412,7 @@ textarea {
   </div>
 
 
-  <!-- =================================================
-       SAVE
-  ================================================== -->
+  <!-- SAQLASH -->
 
   <button
     id="saveButton"
@@ -1690,7 +1421,6 @@ textarea {
   >
     💾 SAQLASH
   </button>
-
 
 </div>
 
@@ -1706,7 +1436,6 @@ const tg =
   window.Telegram.WebApp
     ? window.Telegram.WebApp
     : null;
-
 
 if (tg) {
 
@@ -1765,14 +1494,14 @@ const employees = [
 
 
 /* =====================================================
-   RASM MA'LUMOTLARI
+   RASMLAR
 ===================================================== */
 
 let selectedPhotos = [];
 
 
 /* =====================================================
-   DOM READY
+   READY
 ===================================================== */
 
 document.addEventListener(
@@ -1813,9 +1542,7 @@ document.addEventListener(
         "input",
         function() {
 
-          clearError(
-            "tashqariSumma"
-          );
+          clearError("tashqariSumma");
 
         }
       );
@@ -1827,9 +1554,7 @@ document.addEventListener(
         "input",
         function() {
 
-          clearError(
-            "kechkiSumma"
-          );
+          clearError("kechkiSumma");
 
         }
       );
@@ -1844,31 +1569,20 @@ document.addEventListener(
 
 function setToday() {
 
-  const date =
-    new Date();
-
+  const date = new Date();
 
   const year =
     date.getFullYear();
 
-
   const month =
     String(
       date.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    );
-
+    ).padStart(2, "0");
 
   const day =
     String(
       date.getDate()
-    ).padStart(
-      2,
-      "0"
-    );
-
+    ).padStart(2, "0");
 
   document
     .getElementById("sana")
@@ -1878,12 +1592,11 @@ function setToday() {
       month +
       "-" +
       day;
-
 }
 
 
 /* =====================================================
-   EMPLOYEE RENDER
+   EMPLOYEES
 ===================================================== */
 
 function renderEmployees(
@@ -1896,22 +1609,16 @@ function renderEmployees(
       containerId
     );
 
-
   container.innerHTML = "";
-
 
   employees.forEach(
     function(employee) {
 
       const label =
-        document.createElement(
-          "label"
-        );
-
+        document.createElement("label");
 
       label.className =
         "employee";
-
 
       label.innerHTML = `
 
@@ -1935,25 +1642,16 @@ function renderEmployees(
 
       `;
 
-
-      container.appendChild(
-        label
-      );
-
+      container.appendChild(label);
 
       const checkbox =
-        label.querySelector(
-          "input"
-        );
-
+        label.querySelector("input");
 
       checkbox.addEventListener(
         "change",
         function() {
 
-          handleEmployeeChange(
-            group
-          );
+          handleEmployeeChange(group);
 
         }
       );
@@ -1968,27 +1666,24 @@ function renderEmployees(
    EMPLOYEE CHANGE
 ===================================================== */
 
-function handleEmployeeChange(
-  group
-) {
+function handleEmployeeChange(group) {
 
-  if (
-    group === "oshxona"
-  ) {
+  /*
+    OSHXONA TANLANGANDA
+    shu xodim tashqarida bloklanadi
+  */
 
-    const kitchenSelected =
-      getSelectedEmployees(
-        "oshxona"
-      );
+  if (group === "oshxona") {
 
+    const selected =
+      getSelectedEmployees("oshxona");
 
-    const selectedIds =
-      kitchenSelected.map(
+    const ids =
+      selected.map(
         function(x) {
           return String(x.id);
         }
       );
-
 
     document
       .querySelectorAll(
@@ -2002,10 +1697,7 @@ function handleEmployeeChange(
               checkbox.dataset.id
             );
 
-
-          if (
-            selectedIds.includes(id)
-          ) {
+          if (ids.includes(id)) {
 
             checkbox.checked =
               false;
@@ -2026,23 +1718,22 @@ function handleEmployeeChange(
   }
 
 
-  if (
-    group === "tashqari"
-  ) {
+  /*
+    TASHQARI TANLANGANDA
+    shu xodim oshxonada bloklanadi
+  */
 
-    const outsideSelected =
-      getSelectedEmployees(
-        "tashqari"
-      );
+  if (group === "tashqari") {
 
+    const selected =
+      getSelectedEmployees("tashqari");
 
-    const selectedIds =
-      outsideSelected.map(
+    const ids =
+      selected.map(
         function(x) {
           return String(x.id);
         }
       );
-
 
     document
       .querySelectorAll(
@@ -2056,10 +1747,7 @@ function handleEmployeeChange(
               checkbox.dataset.id
             );
 
-
-          if (
-            selectedIds.includes(id)
-          ) {
+          if (ids.includes(id)) {
 
             checkbox.checked =
               false;
@@ -2086,80 +1774,56 @@ function handleEmployeeChange(
 
 
 /* =====================================================
-   EMPLOYEE COUNTS
+   COUNTS
 ===================================================== */
 
 function updateEmployeeCounts() {
 
   document
-    .getElementById(
-      "oshxonaCount"
-    )
+    .getElementById("oshxonaCount")
     .textContent =
-      getSelectedEmployees(
-        "oshxona"
-      ).length +
+      getSelectedEmployees("oshxona").length +
       " ta";
-
 
   document
-    .getElementById(
-      "tashqariCount"
-    )
+    .getElementById("tashqariCount")
     .textContent =
-      getSelectedEmployees(
-        "tashqari"
-      ).length +
+      getSelectedEmployees("tashqari").length +
       " ta";
-
 
   document
-    .getElementById(
-      "kechkiCount"
-    )
+    .getElementById("kechkiCount")
     .textContent =
-      getSelectedEmployees(
-        "kechki"
-      ).length +
+      getSelectedEmployees("kechki").length +
       " ta";
-
 }
 
 
 /* =====================================================
-   TOGGLE EMPLOYEES
+   TOGGLE
 ===================================================== */
 
-function toggleEmployees(
-  id
-) {
+function toggleEmployees(id) {
 
   document
     .getElementById(id)
-    .classList.toggle(
-      "open"
-    );
+    .classList.toggle("open");
 
 }
 
 
 /* =====================================================
-   GET SELECTED
+   GET SELECTED EMPLOYEES
 ===================================================== */
 
-function getSelectedEmployees(
-  group
-) {
+function getSelectedEmployees(group) {
 
   const checkboxes =
     document.querySelectorAll(
       `input[data-group="${group}"]:checked`
     );
 
-
-  return Array.from(
-    checkboxes
-  )
+  return Array.from(checkboxes)
     .map(
       function(checkbox) {
 
@@ -2200,7 +1864,7 @@ function getSelectedEmployees(
 
 
 /* =====================================================
-   PRODUCT
+   PRODUCTS
 ===================================================== */
 
 function addProduct() {
@@ -2210,16 +1874,11 @@ function addProduct() {
       "productList"
     );
 
-
   const row =
-    document.createElement(
-      "div"
-    );
-
+    document.createElement("div");
 
   row.className =
     "product-row";
-
 
   row.innerHTML = `
 
@@ -2239,91 +1898,82 @@ function addProduct() {
     <button
       type="button"
       class="remove-product"
-      onclick="removeProduct(this)"
     >
       ×
     </button>
 
   `;
 
-
-  list.appendChild(
-    row
-  );
+  list.appendChild(row);
 
 
   row
-    .querySelector(
-      ".product-price"
-    )
+    .querySelector(".product-price")
     .addEventListener(
       "input",
       calculateKitchenTotal
     );
 
 
+  row
+    .querySelector(".remove-product")
+    .addEventListener(
+      "click",
+      function() {
+
+        removeProduct(row);
+
+      }
+    );
+
+
   calculateKitchenTotal();
 
 }
 
 
-function removeProduct(
-  button
-) {
+/* =====================================================
+   REMOVE PRODUCT
+===================================================== */
+
+function removeProduct(row) {
 
   const rows =
     document.querySelectorAll(
       ".product-row"
     );
 
+  if (rows.length <= 1) {
 
-  if (
-    rows.length <= 1
-  ) {
-
-    rows[0]
-      .querySelector(
-        ".product-name"
-      )
+    row
+      .querySelector(".product-name")
       .value = "";
 
-
-    rows[0]
-      .querySelector(
-        ".product-price"
-      )
+    row
+      .querySelector(".product-price")
       .value = "";
 
+  } else {
 
-    calculateKitchenTotal();
-
-    return;
+    row.remove();
 
   }
-
-
-  button
-    .closest(
-      ".product-row"
-    )
-    .remove();
-
 
   calculateKitchenTotal();
 
 }
 
 
+/* =====================================================
+   KITCHEN TOTAL
+===================================================== */
+
 function calculateKitchenTotal() {
 
-  let total =
-    0;
-
+  let total = 0;
 
   document
-    .querySelectorAll(
-      ".product-price"
-    )
+    .querySelectorAll(".product-price")
     .forEach(
       function(input) {
 
@@ -2335,11 +1985,8 @@ function calculateKitchenTotal() {
       }
     );
 
-
   document
-    .getElementById(
-      "kitchenTotal"
-    )
+    .getElementById("kitchenTotal")
     .textContent =
       formatMoney(total) +
       " UZS";
@@ -2347,41 +1994,35 @@ function calculateKitchenTotal() {
 }
 
 
+/* =====================================================
+   PRODUCTS DATA
+===================================================== */
+
 function getProducts() {
 
-  const products =
-    [];
-
+  const products = [];
 
   document
-    .querySelectorAll(
-      ".product-row"
-    )
+    .querySelectorAll(".product-row")
     .forEach(
       function(row) {
 
         const name =
           row
-            .querySelector(
-              ".product-name"
-            )
+            .querySelector(".product-name")
             .value
             .trim();
 
-
-        const price =
+        const summa =
           Number(
             row
-              .querySelector(
-                ".product-price"
-              )
+              .querySelector(".product-price")
               .value || 0
           );
 
-
         if (
           name ||
-          price > 0
+          summa > 0
         ) {
 
           products.push({
@@ -2390,7 +2031,7 @@ function getProducts() {
               name,
 
             summa:
-              price
+              summa
 
           });
 
@@ -2398,7 +2039,6 @@ function getProducts() {
 
       }
     );
-
 
   return products;
 
@@ -2409,10 +2049,10 @@ function getKitchenTotal() {
 
   return getProducts()
     .reduce(
-      function(sum, product) {
+      function(total, product) {
 
         return (
-          sum +
+          total +
           Number(
             product.summa || 0
           )
@@ -2429,14 +2069,10 @@ function getKitchenTotal() {
    WEEK
 ===================================================== */
 
-function selectWeek(
-  button
-) {
+function selectWeek(button) {
 
   document
-    .querySelectorAll(
-      ".week-button"
-    )
+    .querySelectorAll(".week-button")
     .forEach(
       function(btn) {
 
@@ -2447,16 +2083,12 @@ function selectWeek(
       }
     );
 
-
   button.classList.add(
     "selected"
   );
 
-
   document
-    .getElementById(
-      "oshxonaHafta"
-    )
+    .getElementById("oshxonaHafta")
     .value =
       button.dataset.week;
 
@@ -2464,41 +2096,30 @@ function selectWeek(
 
 
 /* =====================================================
-   PHOTOS
+   PHOTO SELECTION
 ===================================================== */
 
-async function handlePhotoSelection(
-  event
-) {
+async function handlePhotoSelection(event) {
 
   const files =
     Array.from(
       event.target.files || []
     );
 
-
-  if (
-    files.length > 2
-  ) {
+  if (files.length > 2) {
 
     showStatus(
       "❌ Maksimum 2 ta rasm tanlash mumkin.",
       "error"
     );
 
-
-    event.target.value =
-      "";
-
+    event.target.value = "";
 
     return;
 
   }
 
-
-  selectedPhotos =
-    [];
-
+  selectedPhotos = [];
 
   for (
     const file of files
@@ -2507,10 +2128,7 @@ async function handlePhotoSelection(
     try {
 
       const compressed =
-        await compressImage(
-          file
-        );
-
+        await compressImage(file);
 
       selectedPhotos.push(
         compressed
@@ -2519,6 +2137,7 @@ async function handlePhotoSelection(
     } catch (error) {
 
       console.error(
+        "Rasm xatosi:",
         error
       );
 
@@ -2526,19 +2145,16 @@ async function handlePhotoSelection(
 
   }
 
-
   renderPhotoPreview();
 
 }
 
 
 /* =====================================================
-   IMAGE COMPRESS
+   COMPRESS PHOTO
 ===================================================== */
 
-function compressImage(
-  file
-) {
+function compressImage(file) {
 
   return new Promise(
     function(resolve, reject) {
@@ -2546,13 +2162,11 @@ function compressImage(
       const reader =
         new FileReader();
 
-
       reader.onload =
         function(event) {
 
           const img =
             new Image();
-
 
           img.onload =
             function() {
@@ -2560,10 +2174,8 @@ function compressImage(
               const maxSize =
                 1280;
 
-
               let width =
                 img.width;
-
 
               let height =
                 img.height;
@@ -2585,7 +2197,6 @@ function compressImage(
                       width
                     );
 
-
                   width =
                     maxSize;
 
@@ -2597,7 +2208,6 @@ function compressImage(
                       maxSize /
                       height
                     );
-
 
                   height =
                     maxSize;
@@ -2612,10 +2222,8 @@ function compressImage(
                   "canvas"
                 );
 
-
               canvas.width =
                 width;
-
 
               canvas.height =
                 height;
@@ -2625,7 +2233,6 @@ function compressImage(
                 canvas.getContext(
                   "2d"
                 );
-
 
               ctx.drawImage(
                 img,
@@ -2639,7 +2246,7 @@ function compressImage(
               const dataUrl =
                 canvas.toDataURL(
                   "image/jpeg",
-                  0.78
+                  0.72
                 );
 
 
@@ -2652,9 +2259,7 @@ function compressImage(
                   "image/jpeg",
 
                 data:
-                  dataUrl.split(
-                    ","
-                  )[1]
+                  dataUrl.split(",")[1]
 
               });
 
@@ -2663,7 +2268,6 @@ function compressImage(
 
           img.onerror =
             reject;
-
 
           img.src =
             event.target.result;
@@ -2674,10 +2278,7 @@ function compressImage(
       reader.onerror =
         reject;
 
-
-      reader.readAsDataURL(
-        file
-      );
+      reader.readAsDataURL(file);
 
     }
   );
@@ -2696,9 +2297,7 @@ function renderPhotoPreview() {
       "photoPreview"
     );
 
-
-  preview.innerHTML =
-    "";
+  preview.innerHTML = "";
 
 
   selectedPhotos.forEach(
@@ -2709,7 +2308,6 @@ function renderPhotoPreview() {
           "div"
         );
 
-
       item.className =
         "photo-item";
 
@@ -2718,7 +2316,6 @@ function renderPhotoPreview() {
         document.createElement(
           "img"
         );
-
 
       img.src =
         "data:" +
@@ -2732,46 +2329,36 @@ function renderPhotoPreview() {
           "button"
         );
 
-
       remove.type =
         "button";
 
-
       remove.className =
         "photo-remove";
-
 
       remove.textContent =
         "×";
 
 
       remove.onclick =
-        function() {
+        function(event) {
+
+          event.preventDefault();
 
           selectedPhotos.splice(
             index,
             1
           );
 
-
           renderPhotoPreview();
 
         };
 
 
-      item.appendChild(
-        img
-      );
+      item.appendChild(img);
 
+      item.appendChild(remove);
 
-      item.appendChild(
-        remove
-      );
-
-
-      preview.appendChild(
-        item
-      );
+      preview.appendChild(item);
 
     }
   );
@@ -2793,24 +2380,22 @@ function collectData() {
       : {};
 
 
+  const products =
+    getProducts();
+
+
   return {
 
     sana:
       document
-        .getElementById(
-          "sana"
-        )
+        .getElementById("sana")
         .value,
 
-
     oshxonaXodimlar:
-      getSelectedEmployees(
-        "oshxona"
-      ),
-
+      getSelectedEmployees("oshxona"),
 
     oshxonaItems:
-      getProducts()
+      products
         .map(
           function(product) {
 
@@ -2827,58 +2412,42 @@ function collectData() {
         )
         .join("\n"),
 
+    oshxonaProducts:
+      products,
 
     oshxonaHafta:
       document
-        .getElementById(
-          "oshxonaHafta"
-        )
+        .getElementById("oshxonaHafta")
         .value,
-
 
     tashqariXodimlar:
-      getSelectedEmployees(
-        "tashqari"
-      ),
-
+      getSelectedEmployees("tashqari"),
 
     tashqariSumma:
-      document
-        .getElementById(
-          "tashqariSumma"
-        )
-        .value,
-
-
-    kechkiXodimlar:
-      getSelectedEmployees(
-        "kechki"
+      Number(
+        document
+          .getElementById("tashqariSumma")
+          .value || 0
       ),
 
+    kechkiXodimlar:
+      getSelectedEmployees("kechki"),
 
     kechkiSumma:
-      document
-        .getElementById(
-          "kechkiSumma"
-        )
-        .value,
-
+      Number(
+        document
+          .getElementById("kechkiSumma")
+          .value || 0
+      ),
 
     izoh:
       document
-        .getElementById(
-          "izoh"
-        )
+        .getElementById("izoh")
         .value
         .trim(),
 
-
     photos:
-      selectedPhotos.slice(
-        0,
-        2
-      ),
-
+      selectedPhotos.slice(0, 2),
 
     telegramUser:
       telegramUser
@@ -2894,53 +2463,43 @@ function collectData() {
 
 function validateForm() {
 
-  const tashqariSumma =
+  const sana =
+    document
+      .getElementById("sana")
+      .value;
+
+
+  const kitchenEmployees =
+    getSelectedEmployees("oshxona");
+
+  const outsideEmployees =
+    getSelectedEmployees("tashqari");
+
+  const eveningEmployees =
+    getSelectedEmployees("kechki");
+
+
+  const kitchenTotal =
+    getKitchenTotal();
+
+
+  const outsideAmount =
     Number(
       document
-        .getElementById(
-          "tashqariSumma"
-        )
+        .getElementById("tashqariSumma")
         .value || 0
     );
 
 
-  const kechkiSumma =
+  const eveningAmount =
     Number(
       document
-        .getElementById(
-          "kechkiSumma"
-        )
+        .getElementById("kechkiSumma")
         .value || 0
-    );
-
-
-  const tashqariEmployees =
-    getSelectedEmployees(
-      "tashqari"
-    );
-
-
-  const kechkiEmployees =
-    getSelectedEmployees(
-      "kechki"
-    );
-
-
-  const oshxonaEmployees =
-    getSelectedEmployees(
-      "oshxona"
     );
 
 
   /* DATE */
-
-  const sana =
-    document
-      .getElementById(
-        "sana"
-      )
-      .value;
-
 
   if (!sana) {
 
@@ -2957,12 +2516,12 @@ function validateForm() {
   /* KITCHEN */
 
   if (
-    getKitchenTotal() > 0 &&
-    oshxonaEmployees.length === 0
+    kitchenTotal > 0 &&
+    kitchenEmployees.length === 0
   ) {
 
     showStatus(
-      "❌ Oshxona summasi kiritilgan, lekin oshxona xodimlari tanlanmagan.",
+      "❌ Oshxona summasi kiritilgan, lekin xodim tanlanmagan.",
       "error"
     );
 
@@ -2975,11 +2534,45 @@ function validateForm() {
   }
 
 
+  if (
+    kitchenEmployees.length > 0 &&
+    kitchenTotal <= 0
+  ) {
+
+    showStatus(
+      "❌ Oshxona xodimi tanlangan, lekin mahsulot summasi kiritilmagan.",
+      "error"
+    );
+
+    return false;
+
+  }
+
+
+  /* WEEK */
+
+  if (
+    kitchenTotal > 0 &&
+    !document
+      .getElementById("oshxonaHafta")
+      .value
+  ) {
+
+    showStatus(
+      "❌ Oshxona xarajati uchun haftani tanlang.",
+      "error"
+    );
+
+    return false;
+
+  }
+
+
   /* OUTSIDE */
 
   if (
-    tashqariSumma > 0 &&
-    tashqariEmployees.length === 0
+    outsideAmount > 0 &&
+    outsideEmployees.length === 0
   ) {
 
     showStatus(
@@ -2997,8 +2590,8 @@ function validateForm() {
 
 
   if (
-    tashqariEmployees.length > 0 &&
-    tashqariSumma <= 0
+    outsideEmployees.length > 0 &&
+    outsideAmount <= 0
   ) {
 
     showStatus(
@@ -3022,8 +2615,8 @@ function validateForm() {
   /* EVENING */
 
   if (
-    kechkiSumma > 0 &&
-    kechkiEmployees.length === 0
+    eveningAmount > 0 &&
+    eveningEmployees.length === 0
   ) {
 
     showStatus(
@@ -3041,8 +2634,8 @@ function validateForm() {
 
 
   if (
-    kechkiEmployees.length > 0 &&
-    kechkiSumma <= 0
+    eveningEmployees.length > 0 &&
+    eveningAmount <= 0
   ) {
 
     showStatus(
@@ -3088,15 +2681,11 @@ function validateForm() {
    OPEN SECTION
 ===================================================== */
 
-function openSection(
-  id
-) {
+function openSection(id) {
 
   document
     .getElementById(id)
-    .classList.add(
-      "open"
-    );
+    .classList.add("open");
 
 }
 
@@ -3105,9 +2694,7 @@ function openSection(
    CLEAR ERROR
 ===================================================== */
 
-function clearError(
-  id
-) {
+function clearError(id) {
 
   document
     .getElementById(id)
@@ -3146,7 +2733,6 @@ async function saveData() {
   button.disabled =
     true;
 
-
   button.innerHTML =
     "⏳ SAQLANMOQDA...";
 
@@ -3154,50 +2740,75 @@ async function saveData() {
   try {
 
     /*
-      no-cors ishlatilmoqda.
-      Apps Script javobini browser o'qimaydi,
-      lekin POST ma'lumot serverga yuboriladi.
+      MUHIM:
+      no-cors ishlatilmaydi.
+
+      Chunki no-cors ishlatilsa,
+      frontend server javobini o'qiy olmaydi
+      va "saqlandi" deb yolg'on chiqarishi mumkin.
     */
 
-    await fetch(
+    const response =
+      await fetch(
+        BACKEND_URL,
+        {
+          method:
+            "POST",
 
-      BACKEND_URL,
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
 
-      {
+          body:
+            JSON.stringify(
+              payload
+            )
+        }
+      );
 
-        method:
-          "POST",
 
-        mode:
-          "no-cors",
+    if (!response.ok) {
 
-        headers: {
+      throw new Error(
+        "Server HTTP " +
+        response.status
+      );
 
-          "Content-Type":
-            "text/plain;charset=utf-8"
+    }
 
-        },
 
-        body:
-          JSON.stringify(
-            payload
-          )
+    const result =
+      await response.json();
 
-      }
 
+    console.log(
+      "SERVER JAVOBI:",
+      result
     );
+
+
+    if (
+      !result.ok
+    ) {
+
+      throw new Error(
+        result.error ||
+        "Google Sheet saqlash xatosi"
+      );
+
+    }
 
 
     button.disabled =
       false;
-
 
     button.innerHTML =
       "💾 SAQLASH";
 
 
     showStatus(
-      "✅ Ma’lumot yuborildi va Google Sheet'ga saqlanmoqda.",
+      "✅ Ma’lumot Google Sheet'ga muvaffaqiyatli saqlandi.",
       "success"
     );
 
@@ -3215,7 +2826,6 @@ async function saveData() {
 
     button.disabled =
       false;
-
 
     button.innerHTML =
       "💾 SAQLASH";
@@ -3242,8 +2852,7 @@ function clearForm() {
     .getElementById(
       "oshxonaHafta"
     )
-    .value =
-      "";
+    .value = "";
 
 
   document
@@ -3268,8 +2877,7 @@ function clearForm() {
     .forEach(
       function(input) {
 
-        input.value =
-          "";
+        input.value = "";
 
       }
     );
@@ -3282,8 +2890,7 @@ function clearForm() {
     .forEach(
       function(input) {
 
-        input.value =
-          "";
+        input.value = "";
 
       }
     );
@@ -3293,24 +2900,21 @@ function clearForm() {
     .getElementById(
       "tashqariSumma"
     )
-    .value =
-      "";
+    .value = "";
 
 
   document
     .getElementById(
       "kechkiSumma"
     )
-    .value =
-      "";
+    .value = "";
 
 
   document
     .getElementById(
       "izoh"
     )
-    .value =
-      "";
+    .value = "";
 
 
   document
@@ -3338,20 +2942,17 @@ function clearForm() {
     .getElementById(
       "photos"
     )
-    .value =
-      "";
+    .value = "";
 
 
   document
     .getElementById(
       "photoPreview"
     )
-    .innerHTML =
-      "";
+    .innerHTML = "";
 
 
   updateEmployeeCounts();
-
 
   calculateKitchenTotal();
 
@@ -3362,16 +2963,13 @@ function clearForm() {
    MONEY
 ===================================================== */
 
-function formatMoney(
-  value
-) {
+function formatMoney(value) {
 
   return Number(
     value || 0
-  )
-    .toLocaleString(
-      "uz-UZ"
-    );
+  ).toLocaleString(
+    "uz-UZ"
+  );
 
 }
 
@@ -3406,7 +3004,6 @@ function showStatus(
 
     block:
       "center"
-
   });
 
 }
@@ -3414,5 +3011,4 @@ function showStatus(
 </script>
 
 </body>
-
 </html>
